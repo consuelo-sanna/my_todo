@@ -3,7 +3,14 @@ import React from 'react';
 
 function TodoItem() {
   return (
-        <div> Io sono un componente </div>
+        <div> 
+          <p>
+            <input/> 
+          <button > X </button>
+            
+          </p>
+            
+        </div>
 
   );
 }
