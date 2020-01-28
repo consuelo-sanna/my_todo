@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 class AddItem extends Component {
 
-    
+    //questo stato deve essere passato dal padre che me lo passa inizialmente vuoto e lo riempie modItem. cosi riesco a riempire sempre la box senza fare molte modifiche
+    //state = props.daModificare
         state = {
             title : ''
         }
@@ -21,7 +22,7 @@ class AddItem extends Component {
             <form onSubmit={this.onSubmit}>
                 <input
                     type="text"
-                    name="title"
+                    name="nuovotext"
                     value={this.state.title}
                     onChange={this.onChange}
                 />

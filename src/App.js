@@ -31,7 +31,7 @@ class App extends Component {
 
   markComplete = (id) => this.setState({
     todos: this.state.todos.map( todo => {
-        console.log("son dentro il map");
+        console.log("son dentro map checked");
         console.log(id);
       if(todo.id === id){
         todo.completed = ! todo.completed;
@@ -42,10 +42,26 @@ class App extends Component {
       })
   }) 
 
+  delItem = (id) => { 
+    console.log("son dentro l eliminazione");
+    console.log(id);
+    this.setState( {todos: [...this.state.todos.filter(todo => todo.id !== id)  ]} ); 
+  } ;
+
+
+  /* dopo aver recuperato daModificare devi passarlo come props a AddEditTodo */
+
+  modItem = (id) => {
+    console.log("son dentro la modifica");
+    const daModificare = this.state.todos.find(todo => todo.id === id);
+    console.log(daModificare);
+  };
+  
+
 
   addTodo = (title) => {
     this.setState( {todos: [...this.state.todos, {id: this.state.length + 1, testo: title, completed: false }]} ) ;
-  }
+  };
 
 
   render(){
@@ -56,7 +72,13 @@ class App extends Component {
           To Do App 
         </p>
         <AddItem addTodo = {this.addTodo} />
-        <div><TodoContainer todo = {this.state.todos} markComplete={this.markComplete} /></div>
+        <div><TodoContainer 
+              todo = {this.state.todos} 
+              markComplete = {this.markComplete} 
+              modItem = {this.modItem}
+              delItem = {this.delItem}
+              />
+        </div>
       </header>
       
       

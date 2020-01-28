@@ -8,6 +8,8 @@ function TodoContainer(props) {
                 key = {todo.id} 
                 todo = {todo} 
                 markComplete = {props.markComplete}
+                modItem = {props.modItem}
+                delItem = {props.delItem}
             />
   ))
 }

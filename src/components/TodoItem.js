@@ -20,7 +20,8 @@ function TodoItem(props) {
                //onChange={(e) => this.setState({[e.target.name] : e.target.value})}
                
              />
-            <button style={{color:'red'}}> X </button>
+            <button style={{color:'blue'}} onClick = {props.modItem.bind(this,id) } > M </button>
+            <button style={{color:'red'}} onClick = {props.delItem.bind(this,id) } > X </button>
             
           </p>
             
