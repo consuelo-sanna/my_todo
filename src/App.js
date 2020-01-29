@@ -50,44 +50,51 @@ class App extends Component {
         console.log('son dentro l eliminazione');
         console.log(id);
         this.setState({
-            todos: [...this.state.todos.filter(todo => todo.id !== id)],
+            todos: [
+                ...this.state.todos.filter(todo => todo.id !== id),
+            ],
         });
     };
 
-
-
     modItem = id => {
         console.log('son dentro la modifica');
-        const daModificare = this.state.todos.find(todo => todo.id === id);
+        const daModificare = this.state.todos.find(
+            todo => todo.id === id
+        );
         /*this.setState({
             editable: { id: daModificare.id, title: daModificare.testo },
         }); */
-        this.setState( (prevState) => ({
-          editable : { 
-            ...prevState.editable,
-            title: daModificare.testo,
-          id: daModificare.id}
+        this.setState(prevState => ({
+            editable: {
+                ...prevState.editable,
+                title: daModificare.testo,
+                id: daModificare.id,
+            },
         }));
     };
 
-    addTodo = () => { debugger
+    addTodo = () => {
         this.setState({
             todos: [
                 ...this.state.todos,
-                { id: this.state.todos.length + 1, testo: this.state.editable.title, completed: false },
+                {
+                    id: this.state.todos.length + 1,
+                    testo: this.state.editable.title,
+                    completed: false,
+                },
             ],
         });
         this.setState({ editable: { id: 0, title: '' } });
     };
 
-    editTodo = () => { 
-      console.log("dentro edit todo ");
-      console.log(this.state.editable.id);
+    editTodo = () => {
+        console.log('dentro edit todo ');
+        console.log(this.state.editable.id);
         this.setState({
             todos: [
                 ...this.state.todos.map(todo => {
                     if (todo.id === this.state.editable.id) {
-                      console.log("trovato id da modificare");
+                        console.log('trovato id da modificare');
                         todo.testo = this.state.editable.title;
                     }
                     return todo;
@@ -97,13 +104,14 @@ class App extends Component {
         this.setState({ editable: { id: 0, title: '' } });
     };
 
-    updateText = (title) => { 
-      this.setState( (prevState) => ({
-        editable : { 
-          ...prevState.editable,
-          title: title }
-      }));
-    }
+    updateText = title => {
+        this.setState(prevState => ({
+            editable: {
+                ...prevState.editable,
+                title: title,
+            },
+        }));
+    };
 
     render() {
         return (
@@ -114,7 +122,7 @@ class App extends Component {
                         addTodo={this.addTodo}
                         editTodo={this.editTodo}
                         editable={this.state.editable}
-                        updateText = {this.updateText}
+                        updateText={this.updateText}
                     />
                     <div>
                         <TodoContainer
