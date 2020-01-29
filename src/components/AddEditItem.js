@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AddItem extends Component {
+class AddEditItem extends Component {
     
     state = {
         title: '',
@@ -50,4 +50,4 @@ class AddItem extends Component {
     }
 }
 
-export default AddItem;
+export default AddEditItem;

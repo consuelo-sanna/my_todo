@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import TodoContainer from './components/TodoContainer';
-import AddItem from './components/AddItem';
+import AddEditItem from './components/AddEditItem';
 
 class App extends Component {
     constructor(props) {
@@ -71,6 +71,7 @@ class App extends Component {
                 { id: this.state.length + 1, testo: title, completed: false },
             ],
         });
+        this.setState({ editable: { id: 0, title: '' } });
     };
 
     editTodo = (title, id) => {
@@ -92,7 +93,7 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <p>To Do App</p>
-                    <AddItem
+                    <AddEditItem
                         addTodo={this.addTodo}
                         editTodo={this.editTodo}
                         editable={this.state.editable}
