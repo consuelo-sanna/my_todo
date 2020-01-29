@@ -70,17 +70,17 @@ class App extends Component {
         }));
     };
 
-    addTodo = () => {
+    addTodo = () => { debugger
         this.setState({
             todos: [
                 ...this.state.todos,
-                { id: this.state.length + 1, testo: this.state.editable.title, completed: false },
+                { id: this.state.todos.length + 1, testo: this.state.editable.title, completed: false },
             ],
         });
         this.setState({ editable: { id: 0, title: '' } });
     };
 
-    editTodo = () => { debugger
+    editTodo = () => { 
       console.log("dentro edit todo ");
       console.log(this.state.editable.id);
         this.setState({
