@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 
 class AddEditItem extends Component {
     
-    state = {
-        title: '',
-        id: 0,
-        modificaUser: false,
-    };
+    
 
-    componentDidUpdate(props) {
+   /* componentDidUpdate(props) {
         if (
             !this.state.modificaUser &&
             this.state.title !== this.props.editable.title
@@ -23,15 +19,20 @@ class AddEditItem extends Component {
                 }
             );
         }
-    }
+    }  */
 
     onChange = e => {
-        this.setState({ [e.target.name]: e.target.value, modificaUser: true });
+        //this.setState({ [e.target.name]: e.target.value, modificaUser: true });
+        this.props.updateText(e.target.value);
     };
 
-    onSubmit = e => {
+    onSubmit = e => { 
         e.preventDefault();
-        this.props.addTodo(this.state.title, this.state.id);
+        if(this.props.editable.id === 0 )
+            this.props.addTodo();
+        else
+        this.props.editTodo();
+        
         this.setState({ title: '', modificaUser: false });
     };
 
@@ -41,8 +42,9 @@ class AddEditItem extends Component {
                 <input
                     type="text"
                     name="title"
-                    value={this.state.title}
+                    value={this.props.editable.title}
                     onChange={this.onChange}
+                    
                 />
                 <input type="submit" value="submit" className="btn" />
             </form>

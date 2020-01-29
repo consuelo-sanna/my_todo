@@ -59,27 +59,36 @@ class App extends Component {
     modItem = id => {
         console.log('son dentro la modifica');
         const daModificare = this.state.todos.find(todo => todo.id === id);
-        this.setState({
+        /*this.setState({
             editable: { id: daModificare.id, title: daModificare.testo },
-        }); 
+        }); */
+        this.setState( (prevState) => ({
+          editable : { 
+            ...prevState.editable,
+            title: daModificare.testo,
+          id: daModificare.id}
+        }));
     };
 
-    addTodo = (title, id) => {
+    addTodo = () => {
         this.setState({
             todos: [
                 ...this.state.todos,
-                { id: this.state.length + 1, testo: title, completed: false },
+                { id: this.state.length + 1, testo: this.state.editable.title, completed: false },
             ],
         });
         this.setState({ editable: { id: 0, title: '' } });
     };
 
-    editTodo = (title, id) => {
+    editTodo = () => { debugger
+      console.log("dentro edit todo ");
+      console.log(this.state.editable.id);
         this.setState({
             todos: [
                 ...this.state.todos.map(todo => {
-                    if (todo.id === id) {
-                        todo.testo = title;
+                    if (todo.id === this.state.editable.id) {
+                      console.log("trovato id da modificare");
+                        todo.testo = this.state.editable.title;
                     }
                     return todo;
                 }),
@@ -87,6 +96,14 @@ class App extends Component {
         });
         this.setState({ editable: { id: 0, title: '' } });
     };
+
+    updateText = (title) => { 
+      this.setState( (prevState) => ({
+        editable : { 
+          ...prevState.editable,
+          title: title }
+      }));
+    }
 
     render() {
         return (
@@ -97,6 +114,7 @@ class App extends Component {
                         addTodo={this.addTodo}
                         editTodo={this.editTodo}
                         editable={this.state.editable}
+                        updateText = {this.updateText}
                     />
                     <div>
                         <TodoContainer
