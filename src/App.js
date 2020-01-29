@@ -26,7 +26,10 @@ class App extends Component {
           completed: false
         }
       ],
-      editable : 'prova'
+      editable : {
+        id : 0,
+        title : '',
+      }
       
     }
   }
@@ -53,16 +56,34 @@ class App extends Component {
 
   /* dopo aver recuperato daModificare devi passarlo come props a AddEditTodo */
 
-  modItem = (id) => {
+  modItem = (id) => { 
     console.log("son dentro la modifica");
     const daModificare = this.state.todos.find(todo => todo.id === id);
-    console.log(daModificare);
+    this.setState( {editable : {id: daModificare.id, title: daModificare.testo }} );  //sicuramente c'è un modo piu intelligente, trovalo
+    var prova = this.state.editable;
   };
   
 
 
-  addTodo = (title) => {
-    this.setState( {todos: [...this.state.todos, {id: this.state.length + 1, testo: title, completed: false }]} ) ;
+  addTodo = (title,id) => { 
+    if(this.state.editable.id === 0){
+      this.setState( {todos: [...this.state.todos, {id: this.state.length + 1, testo: title, completed: false }]} ) ;
+    } else {
+      this.setState({ todos: [...this.state.todos.map( todo => {
+        if(todo.id === id){
+          todo.testo = title;
+        }
+        return todo;
+        
+      })]}); 
+
+      
+
+      //const nuovoStato = this.state.todos;
+    }
+    const stato = this.state; //per debug
+    this.setState({editable :  {id: 0, title: '' }  });
+    const stato2 = stato; //per debug
   };
 
 

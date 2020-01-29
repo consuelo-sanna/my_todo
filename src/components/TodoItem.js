@@ -3,6 +3,7 @@ import React from 'react';
 
 function TodoItem(props) {
 
+
   
 
   
@@ -15,9 +16,8 @@ function TodoItem(props) {
             />
             <input style = {{textDecoration: props.todo.completed ? 'line-through' : 'none'}}
                 type='text'  
-                
-               defaultValue = {testo}
-               //onChange={(e) => this.setState({[e.target.name] : e.target.value})}
+                readOnly
+               value = {testo}
                
              />
             <button style={{color:'blue'}} onClick = {props.modItem.bind(this,id) } > M </button>
