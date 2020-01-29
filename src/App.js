@@ -25,7 +25,9 @@ class App extends Component {
           testo: "studiare",
           completed: false
         }
-      ]
+      ],
+      editable : 'prova'
+      
     }
   }
 
@@ -64,20 +66,24 @@ class App extends Component {
   };
 
 
-  render(){
+  render(){ 
   return (
     <div className="App">
       <header className="App-header">
         <p>
           To Do App 
         </p>
-        <AddItem addTodo = {this.addTodo} />
-        <div><TodoContainer 
+        <AddItem 
+            addTodo = {this.addTodo} 
+            editTodo = {this.state.editable} 
+        />
+        <div>
+          <TodoContainer 
               todo = {this.state.todos} 
               markComplete = {this.markComplete} 
               modItem = {this.modItem}
               delItem = {this.delItem}
-              />
+          />
         </div>
       </header>
       

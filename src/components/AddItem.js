@@ -8,8 +8,23 @@ class AddItem extends Component {
             title : ''
         }
     
+    componentDidMount(props){ 
 
-    onChange = (e) => this.setState({[e.target.name] : e.target.value});
+        this.setState({
+            title : this.props.editTodo
+        }, function () {
+            console.log(this.state.title);
+        });
+    }
+        
+
+    
+        
+
+
+    onChange = (e) => { 
+        this.setState({[e.target.name] : e.target.value});
+    }
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -22,7 +37,7 @@ class AddItem extends Component {
             <form onSubmit={this.onSubmit}>
                 <input
                     type="text"
-                    name="nuovotext"
+                    name="title"
                     value={this.state.title}
                     onChange={this.onChange}
                 />
