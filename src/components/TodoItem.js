@@ -3,14 +3,10 @@ import React from 'react';
 
 function TodoItem(props) {
 
-
-  
-
-  
   const {id,testo} = props.todo;
   return (
         <div> 
-          <p>
+          <label>
             <input type='checkbox' 
                 onChange = {props.markComplete.bind(this,id)}
             />
@@ -22,11 +18,8 @@ function TodoItem(props) {
              />
             <button style={{color:'blue'}} onClick = {props.modItem.bind(this,id) } > M </button>
             <button style={{color:'red'}} onClick = {props.delItem.bind(this,id) } > X </button>
-            
-          </p>
-            
+          </label>
         </div>
-
   );
 }
 
