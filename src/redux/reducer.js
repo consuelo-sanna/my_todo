@@ -1,4 +1,10 @@
-import { ADD_TODO, DEL_TODO } from './ActionTypes';
+import {
+    ADD_TODO,
+    DEL_TODO,
+    EDIT_TODO,
+    MARK_TODO,
+    GET_TODOS,
+} from './ActionTypes';
 
 const initialState = {
     todos: [
@@ -45,11 +51,15 @@ function todoApp(state = initialState, action) {
                     if (todo.id === action.payload) {
                         todo.completed = !todo.completed;
                     }
+                    return todo;
                 }),
             };
         case EDIT_TODO:
             return { ...state };
+        case GET_TODOS:
+            return state.todos;
         default:
             return state;
     }
 }
+export default todoApp;
