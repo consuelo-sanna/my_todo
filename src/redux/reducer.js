@@ -3,6 +3,7 @@ import {
     DEL_TODO,
     EDIT_TODO,
     MARK_TODO,
+    UPDATE_TEXT,
 } from './ActionTypes';
 
 const initialState = {
@@ -54,7 +55,20 @@ function todoApp(state = initialState, action) {
                 }),
             };
         case EDIT_TODO:
-            return { ...state };
+            return {
+                ...state,
+                editable: {
+                    id: action.payload.id,
+                    title: action.payload.testo,
+                },
+            };
+        case UPDATE_TEXT:
+            return {
+                editable: {
+                    ...state.editable,
+                    title: 'action.payload.testo',
+                },
+            };
         default:
             return state;
     }

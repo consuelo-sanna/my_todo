@@ -9,11 +9,12 @@ import {
     edit_todo,
     del_todo,
     mark_todo,
+    update_text,
 } from './redux/ActionCreators';
 import { store } from './redux/store';
 import { connect } from 'react-redux';
 
-import { getTodos } from './redux/selectors/index';
+import { getTodos, getEditable } from './redux/selectors/index';
 
 import {
     ADD_TODO,
@@ -66,43 +67,29 @@ class App extends Component {
         this.setState({ editable: { id: 0, title: '' } });
     };
 
-    updateText = title => {
-        this.setState(prevState => ({
-            editable: {
-                ...prevState.editable,
-                title: title,
-            },
-        }));
-    };
-*/
-
-    /*   
-
-    
-
-    modItem = id => {
+    modItem = (id,testo) => {
         console.log('son dentro la modifica');
         const daModificare = this.state.todos.find(
             todo => todo.id === id
         );
-        /*this.setState({
-            editable: { id: daModificare.id, title: daModificare.testo },
-        }); 
-        
-        
-        
-        Da inserire dopo div p
+        this.setState({
+            editable: {
+                id: daModificare.id,
+                title: daModificare.testo,
+            },
+        });
+    };
+*/
 
-<AddEditItem
-                        addTodo={this.addTodo}
-                        editTodo={this.editTodo}
-                        editable={this.props.editable}
-                        updateText={this.updateText}
-                    />
-        
-        
-        
-        */
+    modItem = (id, testo) => {
+        store.dispatch(edit_todo(testo, id));
+    };
+
+    updateText = (testo, id) => {
+        debugger;
+        store.dispatch(update_text(testo, id));
+        const stato = this.props.editable;
+    };
 
     markComplete = id => {
         store.dispatch(mark_todo(id));
@@ -117,7 +104,12 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <p>To Do App</p>
-
+                    <AddEditItem
+                        addTodo={this.addTodo}
+                        editTodo={this.editTodo}
+                        editable={this.props.editable}
+                        updateText={this.updateText}
+                    />
                     <div>
                         <TodoContainer
                             todo={this.props.todos}
@@ -134,6 +126,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     todos: getTodos(state), //state.todos
+    editable: getEditable(state),
 });
 
 export default connect(mapStateToProps, {
@@ -141,4 +134,5 @@ export default connect(mapStateToProps, {
     edit_todo,
     del_todo,
     mark_todo,
+    update_text,
 })(App);

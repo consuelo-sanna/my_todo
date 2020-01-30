@@ -5,6 +5,7 @@ import {
     EDIT_TODO,
     DEL_TODO,
     MARK_TODO,
+    UPDATE_TEXT,
 } from './ActionTypes';
 
 export const add_todo = (testo, id) => ({
@@ -25,4 +26,9 @@ export const edit_todo = (testo, id) => ({
 export const mark_todo = id => ({
     type: MARK_TODO,
     payload: id,
+});
+
+export const update_text = (testo, id) => ({
+    type: UPDATE_TEXT,
+    payload: { testo, id },
 });

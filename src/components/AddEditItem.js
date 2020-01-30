@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 class AddEditItem extends Component {
     onChange = e => {
-        this.props.updateText(e.target.value);
+        this.props.updateText(e.target.value, this.props.editable.id);
+        //onChange={() => props.markComplete(id)}
     };
 
     onSubmit = e => {
