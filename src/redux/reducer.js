@@ -3,7 +3,6 @@ import {
     DEL_TODO,
     EDIT_TODO,
     MARK_TODO,
-    GET_TODOS,
 } from './ActionTypes';
 
 const initialState = {
@@ -56,8 +55,6 @@ function todoApp(state = initialState, action) {
             };
         case EDIT_TODO:
             return { ...state };
-        case GET_TODOS:
-            return state.todos;
         default:
             return state;
     }

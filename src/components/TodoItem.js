@@ -7,7 +7,7 @@ function TodoItem(props) {
             <label>
                 <input
                     type="checkbox"
-                    //onChange = {props.markComplete.bind(this,id)}
+                    onChange={() => props.markComplete(id)}
                 />
                 <input
                     style={{
@@ -28,7 +28,7 @@ function TodoItem(props) {
                 </button>
                 <button
                     style={{ color: 'red' }}
-                    //onClick={props.delItem.bind(this, id)}
+                    onClick={() => props.delItem(id)}
                 >
                     {' '}
                     X{' '}

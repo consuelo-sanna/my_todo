@@ -9,12 +9,18 @@ import {
     edit_todo,
     del_todo,
     mark_todo,
-    get_todos,
 } from './redux/ActionCreators';
 import { store } from './redux/store';
 import { connect } from 'react-redux';
 
 import { getTodos } from './redux/selectors/index';
+
+import {
+    ADD_TODO,
+    EDIT_TODO,
+    DEL_TODO,
+    MARK_TODO,
+} from './redux/ActionTypes';
 
 class App extends Component {
     /*constructor(props) {
@@ -70,29 +76,9 @@ class App extends Component {
     };
 */
 
-    /*   markComplete = id =>
-        this.setState({
-            todos: this.state.todos.map(todo => {
-                console.log('son dentro map checked');
-                console.log(id);
-                if (todo.id === id) {
-                    todo.completed = !todo.completed;
-                    console.log('son dentro l if');
-                    console.log(todo.completed);
-                }
-                return todo;
-            }),
-        });
+    /*   
 
-    delItem = id => {
-        console.log('son dentro l eliminazione');
-        console.log(id);
-        this.setState({
-            todos: [
-                ...this.state.todos.filter(todo => todo.id !== id),
-            ],
-        });
-    };
+    
 
     modItem = id => {
         console.log('son dentro la modifica');
@@ -118,6 +104,14 @@ class App extends Component {
         
         */
 
+    markComplete = id => {
+        store.dispatch(mark_todo(id));
+    };
+
+    delItem = id => {
+        store.dispatch(del_todo(id));
+    };
+
     render() {
         return (
             <div className="App">
@@ -127,9 +121,9 @@ class App extends Component {
                     <div>
                         <TodoContainer
                             todo={this.props.todos}
-                            //markComplete={this.markComplete}
-                            //modItem={this.modItem}
-                            //delItem={this.delItem}
+                            markComplete={this.markComplete}
+                            modItem={this.modItem}
+                            delItem={this.delItem}
                         />
                     </div>
                 </header>
@@ -147,5 +141,4 @@ export default connect(mapStateToProps, {
     edit_todo,
     del_todo,
     mark_todo,
-    get_todos,
 })(App);
