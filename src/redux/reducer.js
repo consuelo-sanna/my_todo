@@ -1,8 +1,27 @@
 import { ADD_TODO, DEL_TODO } from './ActionTypes';
 
 const initialState = {
-    todos: [],
-    editable: {},
+    todos: [
+        {
+            id: 1,
+            testo: 'mangiare',
+            completed: false,
+        },
+        {
+            id: 2,
+            testo: 'bere',
+            completed: false,
+        },
+        {
+            id: 3,
+            testo: 'studiare',
+            completed: false,
+        },
+    ],
+    editable: {
+        id: 0,
+        title: '',
+    },
 };
 
 function todoApp(state = initialState, action) {
