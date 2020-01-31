@@ -1,6 +1,7 @@
 import {
     ADD_TODO,
     DEL_TODO,
+    MOD_TEXT,
     EDIT_TODO,
     MARK_TODO,
     UPDATE_TEXT,
@@ -38,6 +39,19 @@ function todoApp(state = initialState, action) {
                 todos: [action.payload, ...state.todos],
                 editable: { id: 0, title: '' },
             };
+        case EDIT_TODO:
+            return {
+                ...state,
+                todos: [
+                    ...state.todos.map(todo => {
+                        if (todo.id === state.editable.id) {
+                            todo.testo = state.editable.title;
+                        }
+                        return todo;
+                    }),
+                ],
+                editable: { id: 0, title: '' },
+            };
         case DEL_TODO:
             return {
                 ...state,
@@ -55,7 +69,7 @@ function todoApp(state = initialState, action) {
                     return todo;
                 }),
             };
-        case EDIT_TODO:
+        case MOD_TEXT:
             return {
                 ...state,
                 editable: {

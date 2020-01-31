@@ -7,6 +7,7 @@ import AddEditItem from './components/AddEditItem';
 import {
     add_todo,
     edit_todo,
+    mod_text,
     del_todo,
     mark_todo,
     update_text,
@@ -17,65 +18,11 @@ import { connect } from 'react-redux';
 import { getTodos, getEditable } from './redux/selectors/index';
 
 class App extends Component {
-    /*constructor(props) {
-        super(props);
-    } 
-        this.setState(prevState => ({
-            editable: {
-                ...prevState.editable,
-                title: daModificare.testo,
-                id: daModificare.id,
-            },
-        }));
-    };
-
-    addTodo = () => {
-        this.setState({
-            todos: [
-                ...this.state.todos,
-                {
-                    id: this.state.todos.length + 1,
-                    testo: this.state.editable.title,
-                    completed: false,
-                },
-            ],
-        });
-        this.setState({ editable: { id: 0, title: '' } });
-    };
-
     editTodo = () => {
-        console.log('dentro edit todo ');
-        console.log(this.state.editable.id);
-        this.setState({
-            todos: [
-                ...this.state.todos.map(todo => {
-                    if (todo.id === this.state.editable.id) {
-                        console.log('trovato id da modificare');
-                        todo.testo = this.state.editable.title;
-                    }
-                    return todo;
-                }),
-            ],
-        });
-        this.setState({ editable: { id: 0, title: '' } });
+        store.dispatch(edit_todo());
     };
-
-    modItem = (id,testo) => {
-        console.log('son dentro la modifica');
-        const daModificare = this.state.todos.find(
-            todo => todo.id === id
-        );
-        this.setState({
-            editable: {
-                id: daModificare.id,
-                title: daModificare.testo,
-            },
-        });
-    };
-*/
 
     addTodo = () => {
-        debugger;
         store.dispatch(
             add_todo(
                 this.props.editable.title,
@@ -85,7 +32,7 @@ class App extends Component {
     };
 
     modItem = (id, testo) => {
-        store.dispatch(edit_todo(testo, id));
+        store.dispatch(mod_text(testo, id));
     };
 
     updateText = (testo, id) => {
@@ -126,12 +73,13 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-    todos: getTodos(state), //state.todos
+    todos: getTodos(state),
     editable: getEditable(state),
 });
 
 export default connect(mapStateToProps, {
     add_todo,
+    mod_text,
     edit_todo,
     del_todo,
     mark_todo,

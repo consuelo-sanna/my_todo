@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class AddEditItem extends Component {
     onChange = e => {
         this.props.updateText(e.target.value, this.props.editable.id);
-        //onChange={() => props.markComplete(id)}
     };
 
     onSubmit = e => {
@@ -11,8 +10,6 @@ class AddEditItem extends Component {
         if (this.props.editable.id === 0) {
             this.props.addTodo();
         } else this.props.editTodo();
-
-        //this.setState({ title: '', modificaUser: false });
     };
 
     render() {

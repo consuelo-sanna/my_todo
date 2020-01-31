@@ -3,6 +3,7 @@
 import {
     ADD_TODO,
     EDIT_TODO,
+    MOD_TEXT,
     DEL_TODO,
     MARK_TODO,
     UPDATE_TEXT,
@@ -18,8 +19,8 @@ export const del_todo = id => ({
     payload: id,
 });
 
-export const edit_todo = (testo, id) => ({
-    type: EDIT_TODO,
+export const mod_text = (testo, id) => ({
+    type: MOD_TEXT,
     payload: { testo, id, completed: false },
 });
 
@@ -31,4 +32,9 @@ export const mark_todo = id => ({
 export const update_text = (testo, id) => ({
     type: UPDATE_TEXT,
     payload: { testo, id },
+});
+
+export const edit_todo = () => ({
+    type: EDIT_TODO,
+    payload: {},
 });
