@@ -64,9 +64,10 @@ function todoApp(state = initialState, action) {
             };
         case UPDATE_TEXT:
             return {
+                ...state,
                 editable: {
-                    ...state.editable,
-                    title: 'action.payload.testo',
+                    id: action.payload.id,
+                    title: action.payload.testo,
                 },
             };
         default:

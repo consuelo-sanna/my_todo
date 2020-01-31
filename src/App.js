@@ -82,7 +82,6 @@ class App extends Component {
 */
 
     modItem = (id, testo) => {
-        debugger;
         store.dispatch(edit_todo(testo, id));
     };
 
@@ -104,9 +103,9 @@ class App extends Component {
                 <header className="App-header">
                     <p>To Do App</p>
                     <AddEditItem
+                        editable={this.props.editable}
                         addTodo={this.addTodo}
                         editTodo={this.editTodo}
-                        editable={this.props.editable}
                         updateText={this.updateText}
                     />
                     <div>
