@@ -20,7 +20,7 @@ class AddEditItem extends Component {
                 <input
                     type="text"
                     name="title"
-                    value="" //{this.props.editable.title}
+                    value={this.props.editable.title}
                     onChange={this.onChange}
                 />
                 <input type="submit" value="submit" className="btn" />

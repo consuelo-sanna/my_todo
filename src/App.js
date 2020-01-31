@@ -82,13 +82,12 @@ class App extends Component {
 */
 
     modItem = (id, testo) => {
+        debugger;
         store.dispatch(edit_todo(testo, id));
     };
 
     updateText = (testo, id) => {
-        debugger;
         store.dispatch(update_text(testo, id));
-        const stato = this.props.editable;
     };
 
     markComplete = id => {

@@ -21,7 +21,7 @@ function TodoItem(props) {
                 />
                 <button
                     style={{ color: 'blue' }}
-                    onClick={() => props.modItem(testo, id)}
+                    onClick={() => props.modItem(id, testo)}
                 >
                     {' '}
                     M{' '}
