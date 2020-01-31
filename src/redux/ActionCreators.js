@@ -7,6 +7,7 @@ import {
     DEL_TODO,
     MARK_TODO,
     UPDATE_TEXT,
+    ASYNC_MARK_TODO,
 } from './ActionTypes';
 
 export const add_todo = (testo, id) => ({
@@ -37,4 +38,8 @@ export const update_text = (testo, id) => ({
 export const edit_todo = () => ({
     type: EDIT_TODO,
     payload: {},
+});
+
+export const async_mark_todo = () => ({
+    type: ASYNC_MARK_TODO,
 });

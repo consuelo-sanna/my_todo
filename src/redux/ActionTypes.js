@@ -6,6 +6,9 @@ const DEL_TODO = 'DEL_TODO';
 const MARK_TODO = 'MARK_TODO';
 const UPDATE_TEXT = 'UPDATE_TEXT';
 const MOD_TEXT = 'MOD_TEXT';
+
+const ASYNC_MARK_TODO = 'ASYNC_MARK_TODO';
+
 export {
     ADD_TODO,
     EDIT_TODO,
@@ -13,4 +16,5 @@ export {
     MARK_TODO,
     UPDATE_TEXT,
     MOD_TEXT,
+    ASYNC_MARK_TODO,
 };
