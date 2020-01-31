@@ -8,8 +8,9 @@ class AddEditItem extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        if (this.props.editable.id === 0) this.props.add_todo();
-        else this.props.editTodo();
+        if (this.props.editable.id === 0) {
+            this.props.addTodo();
+        } else this.props.editTodo();
 
         //this.setState({ title: '', modificaUser: false });
     };

@@ -16,13 +16,6 @@ import { connect } from 'react-redux';
 
 import { getTodos, getEditable } from './redux/selectors/index';
 
-import {
-    ADD_TODO,
-    EDIT_TODO,
-    DEL_TODO,
-    MARK_TODO,
-} from './redux/ActionTypes';
-
 class App extends Component {
     /*constructor(props) {
         super(props);
@@ -80,6 +73,16 @@ class App extends Component {
         });
     };
 */
+
+    addTodo = () => {
+        debugger;
+        store.dispatch(
+            add_todo(
+                this.props.editable.title,
+                this.props.todos.length + 1
+            )
+        );
+    };
 
     modItem = (id, testo) => {
         store.dispatch(edit_todo(testo, id));

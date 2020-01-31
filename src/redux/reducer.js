@@ -36,6 +36,7 @@ function todoApp(state = initialState, action) {
             return {
                 ...state,
                 todos: [action.payload, ...state.todos],
+                editable: { id: 0, title: '' },
             };
         case DEL_TODO:
             return {
