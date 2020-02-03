@@ -14,26 +14,34 @@ import {
 } from '../ActionTypes';
 
 export const delay = ms => new Promise(res => setTimeout(res, ms));
+
+const urlTodos = 'http://localhost:5000/api/todos';
+
 // Our worker Saga: will perform the async mark task
-export function* markAsync(action) {
-    console.log('sono dentro mark async di saga');
-    console.log(action);
-    yield call(delay, 200);
+export function* markAsync() {
+    const response = yield fetch(urlTodos).then(res => res.json());
+    console.log(JSON.stringify(response));
 }
 
 export function* addAsync() {
-    yield call(delay, 200);
-    console.log('sono dentro add async di saga');
+    const response = yield fetch(urlTodos, {
+        method: 'POST',
+    }).then(res => res.json());
+    console.log(JSON.stringify(response));
 }
 
-export function* editAsync() {
-    yield call(delay, 200);
-    console.log('sono dentro edit async di saga');
+export function* editAsync(action) {
+    const response = yield fetch(urlTodos + '/1', {
+        method: 'PUT',
+    }).then(res => res.json());
+    console.log(JSON.stringify(response));
 }
 
-export function* delAsync() {
-    yield call(delay, 200);
-    console.log('sono dentro delete async di saga');
+export function* delAsync(action) {
+    const response = yield fetch(urlTodos + '/' + action.payload, {
+        method: 'DELETE',
+    }).then(res => res.json());
+    console.log(JSON.stringify(response));
 }
 
 export function* updateAsync() {
