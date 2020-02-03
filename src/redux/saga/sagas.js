@@ -2,16 +2,16 @@
  * Qui devo inserire tutti generatori di funzione/saga che voglio usare come middleware
  */
 
-import { all, put, takeEvery } from 'redux-saga/effects';
+import { all, put, takeEvery, call } from 'redux-saga/effects';
 
 function* helloSaga() {
     console.log('Hello Sagas!');
 }
 
-const delay = ms => new Promise(res => setTimeout(res, ms));
+export const delay = ms => new Promise(res => setTimeout(res, ms));
 // Our worker Saga: will perform the async increment task
-function* markAsync() {
-    yield delay(3000);
+export function* markAsync() {
+    yield call(delay(3000));
     yield put({ type: 'MARK_TODO' });
 }
 
