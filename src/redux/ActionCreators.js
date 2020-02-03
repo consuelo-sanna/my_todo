@@ -9,6 +9,10 @@ import {
     UPDATE_TEXT,
     ASYNC_MARK_TODO,
     ASYNC_ADD_TODO,
+    ASYNC_EDIT_TODO,
+    ASYNC_MOD_TEXT,
+    ASYNC_DEL_TODO,
+    ASYNC_UPDATE_TEXT,
 } from './ActionTypes';
 
 export const add_todo = (testo, id) => ({
@@ -46,7 +50,22 @@ export const async_mark_todo = id => ({
     payload: id,
 });
 
-export const async_add_todo = id => ({
+export const async_add_todo = () => ({
     type: ASYNC_ADD_TODO,
-    payload: id,
+});
+
+export const async_edit_todo = () => ({
+    type: ASYNC_EDIT_TODO,
+});
+
+export const async_del_todo = () => ({
+    type: ASYNC_DEL_TODO,
+});
+
+export const async_update_todo = () => ({
+    type: ASYNC_UPDATE_TEXT,
+});
+
+export const async_mod_todo = () => ({
+    type: ASYNC_MOD_TEXT,
 });

@@ -13,6 +13,10 @@ import {
     update_text,
     async_mark_todo,
     async_add_todo,
+    async_edit_todo,
+    async_del_todo,
+    async_mod_todo,
+    async_update_todo,
 } from './redux/ActionCreators';
 import { store } from './redux/store';
 import { connect } from 'react-redux';
@@ -21,11 +25,12 @@ import { getTodos, getEditable } from './redux/selectors/index';
 
 class App extends Component {
     editTodo = () => {
+        store.dispatch(async_edit_todo());
         store.dispatch(edit_todo());
     };
 
     addTodo = () => {
-        store.dispatch(async_add_todo);
+        store.dispatch(async_add_todo());
         store.dispatch(
             add_todo(
                 this.props.editable.title,
@@ -35,10 +40,12 @@ class App extends Component {
     };
 
     modItem = (id, testo) => {
+        store.dispatch(async_mod_todo());
         store.dispatch(mod_text(testo, id));
     };
 
     updateText = (testo, id) => {
+        store.dispatch(async_update_todo());
         store.dispatch(update_text(testo, id));
     };
 
@@ -47,6 +54,7 @@ class App extends Component {
     };
 
     delItem = id => {
+        store.dispatch(async_del_todo());
         store.dispatch(del_todo(id));
     };
 
@@ -94,4 +102,8 @@ export default connect(mapStateToProps, {
     update_text,
     async_mark_todo,
     async_add_todo,
+    async_edit_todo,
+    async_del_todo,
+    async_mod_todo,
+    async_update_todo,
 })(App);
