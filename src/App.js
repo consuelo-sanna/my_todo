@@ -11,6 +11,8 @@ import {
     del_todo,
     mark_todo,
     update_text,
+    async_mark_todo,
+    async_add_todo,
 } from './redux/ActionCreators';
 import { store } from './redux/store';
 import { connect } from 'react-redux';
@@ -23,6 +25,7 @@ class App extends Component {
     };
 
     addTodo = () => {
+        store.dispatch(async_add_todo);
         store.dispatch(
             add_todo(
                 this.props.editable.title,
@@ -47,6 +50,10 @@ class App extends Component {
         store.dispatch(del_todo(id));
     };
 
+    markAsync = id => {
+        store.dispatch(async_mark_todo(id));
+    };
+
     render() {
         return (
             <div className="App">
@@ -64,6 +71,7 @@ class App extends Component {
                             markComplete={this.markComplete}
                             modItem={this.modItem}
                             delItem={this.delItem}
+                            markAsync={this.markAsync}
                         />
                     </div>
                 </header>
@@ -84,4 +92,6 @@ export default connect(mapStateToProps, {
     del_todo,
     mark_todo,
     update_text,
+    async_mark_todo,
+    async_add_todo,
 })(App);

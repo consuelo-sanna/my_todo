@@ -10,6 +10,10 @@ function TodoItem(props) {
                     onChange={() => props.markComplete(id)}
                 />
                 <input
+                    type="checkbox"
+                    onChange={() => props.markAsync(id)}
+                />
+                <input
                     style={{
                         textDecoration: props.todo.completed
                             ? 'line-through'
