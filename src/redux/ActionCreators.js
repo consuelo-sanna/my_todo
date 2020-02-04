@@ -7,6 +7,8 @@ import {
     DEL_TODO,
     MARK_TODO,
     UPDATE_TEXT,
+    GET_TODOS,
+    GET_TODOS_SUCCESS,
 } from './ActionTypes';
 
 export const add_todo = (testo, id) => ({
@@ -37,4 +39,13 @@ export const update_text = (testo, id) => ({
 export const edit_todo = () => ({
     type: EDIT_TODO,
     payload: {},
+});
+
+export const get_todos = () => ({
+    type: GET_TODOS,
+});
+
+export const get_todos_success = () => ({
+    type: GET_TODOS_SUCCESS,
+    payload: [],
 });

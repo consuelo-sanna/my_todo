@@ -4,7 +4,7 @@ import TodoItem from './TodoItem';
 function TodoContainer(props) {
     return props.todo.map(todo => (
         <TodoItem
-            key={todo.id}
+            key={todo._id}
             todo={todo}
             markComplete={props.markComplete}
             modItem={props.modItem}

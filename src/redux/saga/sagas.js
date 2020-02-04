@@ -2,7 +2,7 @@
  * Qui devo inserire tutti generatori di funzione/saga che voglio usare come middleware
  */
 
-import { takeEvery, call } from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
 
 import {
     ADD_TODO,
@@ -11,6 +11,8 @@ import {
     DEL_TODO,
     MARK_TODO,
     UPDATE_TEXT,
+    GET_TODOS,
+    GET_TODOS_SUCCESS,
 } from '../ActionTypes';
 
 export const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -18,15 +20,29 @@ export const delay = ms => new Promise(res => setTimeout(res, ms));
 const urlTodos = 'http://localhost:5000/api/todos';
 
 // Our worker Saga: will perform the async mark task
-export function* markAsync() {
-    const response = yield fetch(urlTodos).then(res => res.json());
-    console.log(JSON.stringify(response));
+
+//fetch get del server, ricevuta la risposta fa un dispatch per reducer redux
+export function* getAll() {
+    console.log('sono dentro getall');
+    try {
+        const response = yield call(fetch, urlTodos);
+        const body = yield call([response, response.json]);
+        console.log(body); // array con i miei todos
+        yield put({ type: GET_TODOS_SUCCESS, payload: body });
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 export function* addAsync() {
     const response = yield fetch(urlTodos, {
         method: 'POST',
     }).then(res => res.json());
+    console.log(JSON.stringify(response));
+}
+
+export function* markAsync() {
+    const response = yield fetch(urlTodos).then(res => res.json());
     console.log(JSON.stringify(response));
 }
 
@@ -60,4 +76,5 @@ export default function* rootSaga() {
     yield takeEvery(DEL_TODO, delAsync);
     yield takeEvery(UPDATE_TEXT, updateAsync);
     yield takeEvery(MOD_TEXT, modAsync);
+    yield takeEvery(GET_TODOS, getAll);
 }

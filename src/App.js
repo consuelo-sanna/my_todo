@@ -11,6 +11,7 @@ import {
     del_todo,
     mark_todo,
     update_text,
+    get_todos,
 } from './redux/ActionCreators';
 import { store } from './redux/store';
 import { connect } from 'react-redux';
@@ -18,6 +19,10 @@ import { connect } from 'react-redux';
 import { getTodos, getEditable } from './redux/selectors/index';
 
 class App extends Component {
+    componentDidMount() {
+        store.dispatch(get_todos());
+    }
+
     editTodo = () => {
         store.dispatch(edit_todo());
     };
@@ -44,6 +49,7 @@ class App extends Component {
     };
 
     delItem = id => {
+        debugger;
         store.dispatch(del_todo(id));
     };
 

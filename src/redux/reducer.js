@@ -5,26 +5,11 @@ import {
     EDIT_TODO,
     MARK_TODO,
     UPDATE_TEXT,
+    GET_TODOS_SUCCESS,
 } from './ActionTypes';
 
 const initialState = {
-    todos: [
-        {
-            id: 1,
-            testo: 'mangiare',
-            completed: false,
-        },
-        {
-            id: 2,
-            testo: 'bere',
-            completed: false,
-        },
-        {
-            id: 3,
-            testo: 'studiare',
-            completed: false,
-        },
-    ],
+    todos: [],
     editable: {
         id: 0,
         title: '',
@@ -33,6 +18,12 @@ const initialState = {
 
 function todoApp(state = initialState, action) {
     switch (action.type) {
+        case GET_TODOS_SUCCESS:
+            console.log('sono entrato in get todos success');
+            return {
+                ...state,
+                todos: action.payload,
+            };
         case ADD_TODO:
             return {
                 ...state,
@@ -52,13 +43,13 @@ function todoApp(state = initialState, action) {
                 ],
                 editable: { id: 0, title: '' },
             };
-        case DEL_TODO:
+        /*   case DEL_TODO:
             return {
                 ...state,
                 todos: state.todos.filter(
-                    todo => todo.id !== action.payload
+                    todo => todo._id !== action.payload
                 ),
-            };
+            };*/
         case MARK_TODO:
             return {
                 ...state,

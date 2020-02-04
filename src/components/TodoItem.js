@@ -1,13 +1,13 @@
 import React from 'react';
 
 function TodoItem(props) {
-    const { id, testo } = props.todo;
+    const { _id, testo } = props.todo;
     return (
         <div>
             <label>
                 <input
                     type="checkbox"
-                    onChange={() => props.markComplete(id)}
+                    onChange={() => props.markComplete(_id)}
                 />
                 <input
                     style={{
@@ -21,14 +21,14 @@ function TodoItem(props) {
                 />
                 <button
                     style={{ color: 'blue' }}
-                    onClick={() => props.modItem(id, testo)}
+                    onClick={() => props.modItem(_id, testo)}
                 >
                     {' '}
                     M{' '}
                 </button>
                 <button
                     style={{ color: 'red' }}
-                    onClick={() => props.delItem(id)}
+                    onClick={() => props.delItem(_id)}
                 >
                     {' '}
                     X{' '}
