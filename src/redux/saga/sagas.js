@@ -13,6 +13,10 @@ import {
     UPDATE_TEXT,
     GET_TODOS,
     GET_TODOS_SUCCESS,
+    DEL_TODO_SUCCESS,
+    ADD_TODO_SUCCESS,
+    EDIT_TODO_SUCCESS,
+    MARK_TODO_SUCCESS,
 } from '../ActionTypes';
 
 export const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -35,7 +39,6 @@ export function* getAll() {
 }
 
 export function* addAsync(action) {
-    debugger;
     const newTodo = { testo: action.payload };
     const response = yield fetch(urlTodos, {
         method: 'POST',
@@ -45,18 +48,38 @@ export function* addAsync(action) {
         },
     }).then(res => res.json());
     console.log(JSON.stringify(response));
+
+    yield put({ type: ADD_TODO_SUCCESS, payload: response });
 }
 
-export function* markAsync() {
-    const response = yield fetch(urlTodos).then(res => res.json());
+export function* markAsync(action) {
+    const elemento = yield fetch(urlTodos + '/' + action.payload);
+    const body = yield call([elemento, elemento.json]);
+    const marked = {
+        testo: body.testo,
+        completed: !body.completed,
+    };
+    const response = yield fetch(urlTodos + '/' + action.payload, {
+        method: 'PUT',
+        body: JSON.stringify(marked),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(res => res.json());
     console.log(JSON.stringify(response));
+    yield put({ type: MARK_TODO_SUCCESS, payload: action.payload });
 }
 
 export function* editAsync(action) {
-    const response = yield fetch(urlTodos + '/1', {
+    const response = yield fetch(urlTodos + '/' + action.payload.id, {
         method: 'PUT',
+        body: JSON.stringify(action.payload),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     }).then(res => res.json());
     console.log(JSON.stringify(response));
+    yield put({ type: EDIT_TODO_SUCCESS, payload: action.payload });
 }
 
 export function* delAsync(action) {
@@ -64,6 +87,7 @@ export function* delAsync(action) {
         method: 'DELETE',
     }).then(res => res.json());
     console.log(JSON.stringify(response));
+    yield put({ type: DEL_TODO_SUCCESS, payload: action.payload });
 }
 
 export function* updateAsync() {

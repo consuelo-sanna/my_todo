@@ -9,6 +9,10 @@ import {
     UPDATE_TEXT,
     GET_TODOS,
     GET_TODOS_SUCCESS,
+    DEL_TODO_SUCCESS,
+    ADD_TODO_SUCCESS,
+    EDIT_TODO_SUCCESS,
+    MARK_TODO_SUCCESS,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -36,9 +40,9 @@ export const update_text = (testo, id) => ({
     payload: { testo, id },
 });
 
-export const edit_todo = () => ({
+export const edit_todo = (testo, id) => ({
     type: EDIT_TODO,
-    payload: {},
+    payload: { testo, id },
 });
 
 export const get_todos = () => ({
@@ -48,4 +52,24 @@ export const get_todos = () => ({
 export const get_todos_success = () => ({
     type: GET_TODOS_SUCCESS,
     payload: [],
+});
+
+export const del_todo_success = id => ({
+    type: DEL_TODO_SUCCESS,
+    payload: id,
+});
+
+export const add_todo_success = response => ({
+    type: ADD_TODO_SUCCESS,
+    payload: response,
+});
+
+export const edit_todo_success = response => ({
+    type: EDIT_TODO_SUCCESS,
+    payload: response,
+});
+
+export const mark_todo_success = id => ({
+    type: MARK_TODO_SUCCESS,
+    payload: id,
 });

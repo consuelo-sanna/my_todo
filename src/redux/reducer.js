@@ -1,11 +1,11 @@
 import {
-    ADD_TODO,
-    DEL_TODO,
+    DEL_TODO_SUCCESS,
     MOD_TEXT,
-    EDIT_TODO,
-    MARK_TODO,
+    EDIT_TODO_SUCCESS,
+    MARK_TODO_SUCCESS,
     UPDATE_TEXT,
     GET_TODOS_SUCCESS,
+    ADD_TODO_SUCCESS,
 } from './ActionTypes';
 
 const initialState = {
@@ -24,18 +24,18 @@ function todoApp(state = initialState, action) {
                 ...state,
                 todos: action.payload,
             };
-        /*    case ADD_TODO:
+        case ADD_TODO_SUCCESS:
             return {
                 ...state,
                 todos: [action.payload, ...state.todos],
                 editable: { id: 0, title: '' },
-            };  */
-        case EDIT_TODO:
+            };
+        case EDIT_TODO_SUCCESS:
             return {
                 ...state,
                 todos: [
                     ...state.todos.map(todo => {
-                        if (todo.id === state.editable.id) {
+                        if (todo._id === state.editable.id) {
                             todo.testo = state.editable.title;
                         }
                         return todo;
@@ -43,18 +43,18 @@ function todoApp(state = initialState, action) {
                 ],
                 editable: { id: 0, title: '' },
             };
-        /*   case DEL_TODO:
+        case DEL_TODO_SUCCESS:
             return {
                 ...state,
                 todos: state.todos.filter(
                     todo => todo._id !== action.payload
                 ),
-            };*/
-        case MARK_TODO:
+            };
+        case MARK_TODO_SUCCESS:
             return {
                 ...state,
                 todos: state.todos.map(todo => {
-                    if (todo.id === action.payload) {
+                    if (todo._id === action.payload) {
                         todo.completed = !todo.completed;
                     }
                     return todo;

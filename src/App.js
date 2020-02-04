@@ -24,7 +24,12 @@ class App extends Component {
     }
 
     editTodo = () => {
-        store.dispatch(edit_todo());
+        store.dispatch(
+            edit_todo(
+                this.props.editable.title,
+                this.props.editable.id
+            )
+        );
     };
 
     addTodo = () => {
@@ -44,7 +49,6 @@ class App extends Component {
     };
 
     delItem = id => {
-        debugger;
         store.dispatch(del_todo(id));
     };
 
