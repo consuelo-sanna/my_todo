@@ -34,9 +34,15 @@ export function* getAll() {
     }
 }
 
-export function* addAsync() {
+export function* addAsync(action) {
+    debugger;
+    const newTodo = { testo: action.payload };
     const response = yield fetch(urlTodos, {
         method: 'POST',
+        body: JSON.stringify(newTodo),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     }).then(res => res.json());
     console.log(JSON.stringify(response));
 }

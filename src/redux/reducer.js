@@ -24,12 +24,12 @@ function todoApp(state = initialState, action) {
                 ...state,
                 todos: action.payload,
             };
-        case ADD_TODO:
+        /*    case ADD_TODO:
             return {
                 ...state,
                 todos: [action.payload, ...state.todos],
                 editable: { id: 0, title: '' },
-            };
+            };  */
         case EDIT_TODO:
             return {
                 ...state,

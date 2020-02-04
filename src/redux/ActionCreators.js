@@ -11,9 +11,9 @@ import {
     GET_TODOS_SUCCESS,
 } from './ActionTypes';
 
-export const add_todo = (testo, id) => ({
+export const add_todo = testo => ({
     type: ADD_TODO,
-    payload: { testo, id, completed: false },
+    payload: testo,
 });
 
 export const del_todo = id => ({

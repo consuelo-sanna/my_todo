@@ -28,12 +28,7 @@ class App extends Component {
     };
 
     addTodo = () => {
-        store.dispatch(
-            add_todo(
-                this.props.editable.title,
-                this.props.todos.length + 1
-            )
-        );
+        store.dispatch(add_todo(this.props.editable.title));
     };
 
     modItem = (id, testo) => {
