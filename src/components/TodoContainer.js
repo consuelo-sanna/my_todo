@@ -11,7 +11,14 @@ function TodoContainer(props) {
             <Grid container spacing={5} style={{ padding: 24 }}>
                 <div>
                     {props.todo.map(todo => (
-                        <Grid item xs={12} sm={12} lg={12} xl={12}>
+                        <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            lg={12}
+                            xl={12}
+                            key={todo._id}
+                        >
                             <TodoItem
                                 key={todo._id}
                                 todo={todo}

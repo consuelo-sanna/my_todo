@@ -1,4 +1,4 @@
-import React, { Component, memo } from 'react';
+import React, { Component } from 'react';
 import { TextField, Paper, Button, Grid } from '@material-ui/core';
 
 class AddEditItem extends Component {
