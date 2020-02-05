@@ -3,7 +3,6 @@ import './App.css';
 
 import TodoContainer from './components/TodoContainer';
 import AddEditItem from './components/AddEditItem';
-import Toolbar from './components/Toolbar';
 import NavBar from './components/NavBar';
 
 import {
@@ -19,6 +18,7 @@ import { store } from './redux/store';
 import { connect } from 'react-redux';
 
 import { getTodos, getEditable } from './redux/selectors/index';
+import { Card } from '@material-ui/core';
 
 class App extends Component {
     componentDidMount() {
@@ -59,21 +59,22 @@ class App extends Component {
             <div className="App">
                 <NavBar />
                 <header className="App-header">
-                    <Toolbar />
-                    <AddEditItem
-                        editable={this.props.editable}
-                        addTodo={this.addTodo}
-                        editTodo={this.editTodo}
-                        updateText={this.updateText}
-                    />
-                    <div>
-                        <TodoContainer
-                            todo={this.props.todos}
-                            markComplete={this.markComplete}
-                            modItem={this.modItem}
-                            delItem={this.delItem}
+                    <Card color="inherit">
+                        <AddEditItem
+                            editable={this.props.editable}
+                            addTodo={this.addTodo}
+                            editTodo={this.editTodo}
+                            updateText={this.updateText}
                         />
-                    </div>
+                        <div>
+                            <TodoContainer
+                                todo={this.props.todos}
+                                markComplete={this.markComplete}
+                                modItem={this.modItem}
+                                delItem={this.delItem}
+                            />
+                        </div>
+                    </Card>
                 </header>
             </div>
         );

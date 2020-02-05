@@ -1,39 +1,62 @@
 import React from 'react';
 
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
+import { Paper, Button, Grid, Checkbox } from '@material-ui/core';
+
 function TodoItem(props) {
     const { _id, testo } = props.todo;
     return (
         <div>
-            <label>
-                <input
-                    type="checkbox"
-                    onChange={() => props.markComplete(_id)}
-                />
-                <input
-                    style={{
-                        textDecoration: props.todo.completed
-                            ? 'line-through'
-                            : 'none',
-                    }}
-                    type="text"
-                    readOnly
-                    value={testo}
-                />
-                <button
-                    style={{ color: 'blue' }}
-                    onClick={() => props.modItem(_id, testo)}
-                >
-                    {' '}
-                    M{' '}
-                </button>
-                <button
-                    style={{ color: 'red' }}
-                    onClick={() => props.delItem(_id)}
-                >
-                    {' '}
-                    X{' '}
-                </button>
-            </label>
+            {props.todo ? (
+                <Paper style={{ margin: 2, padding: 12 }}>
+                    <Grid container justify="space-between">
+                        <Checkbox
+                            onChange={() => props.markComplete(_id)}
+                            value="primary"
+                            inputProps={{
+                                'aria-label': 'primary checkbox',
+                            }}
+                        />
+                        <CardContent>
+                            <Typography
+                                align="center"
+                                variant="inherit"
+                                component="h5"
+                                style={{
+                                    textDecoration: props.todo
+                                        .completed
+                                        ? 'line-through'
+                                        : 'none',
+                                }}
+                            >
+                                {testo}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button
+                                size="small"
+                                color="primary"
+                                onClick={() =>
+                                    props.modItem(_id, testo)
+                                }
+                            >
+                                M
+                            </Button>
+                            <Button
+                                size="small"
+                                color="secondary"
+                                onClick={() => props.delItem(_id)}
+                            >
+                                X
+                            </Button>
+                        </CardActions>
+                    </Grid>
+                </Paper>
+            ) : null}
         </div>
     );
 }

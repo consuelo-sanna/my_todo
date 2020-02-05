@@ -16,10 +16,10 @@ class AddEditItem extends Component {
     render() {
         return (
             <Paper style={{ margin: 16, padding: 16 }}>
-                <Grid container>
+                <Grid container justify="space-between">
                     <Grid
-                        xs={10}
-                        md={11}
+                        xs={9}
+                        md={10}
                         item
                         style={{ paddingRight: 18 }}
                     >
@@ -30,7 +30,7 @@ class AddEditItem extends Component {
                             fullWidth
                         />
                     </Grid>
-                    <Grid xs={2} md={1} item>
+                    <Grid xs={3} md={2} item>
                         <Button
                             fullWidth
                             color="secondary"
