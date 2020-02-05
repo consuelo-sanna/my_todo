@@ -3,6 +3,8 @@ import './App.css';
 
 import TodoContainer from './components/TodoContainer';
 import AddEditItem from './components/AddEditItem';
+import Toolbar from './components/Toolbar';
+import NavBar from './components/NavBar';
 
 import {
     add_todo,
@@ -55,8 +57,9 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <NavBar />
                 <header className="App-header">
-                    <p>To Do App</p>
+                    <Toolbar />
                     <AddEditItem
                         editable={this.props.editable}
                         addTodo={this.addTodo}

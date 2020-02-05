@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, memo } from 'react';
+import { TextField, Paper, Button, Grid } from '@material-ui/core';
 
 class AddEditItem extends Component {
     onChange = e => {
@@ -14,15 +15,33 @@ class AddEditItem extends Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    type="text"
-                    name="title"
-                    value={this.props.editable.title}
-                    onChange={this.onChange}
-                />
-                <input type="submit" value="submit" className="btn" />
-            </form>
+            <Paper style={{ margin: 16, padding: 16 }}>
+                <Grid container>
+                    <Grid
+                        xs={10}
+                        md={11}
+                        item
+                        style={{ paddingRight: 18 }}
+                    >
+                        <TextField
+                            placeholder="Add Todo here"
+                            value={this.props.editable.title}
+                            onChange={this.onChange}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid xs={2} md={1} item>
+                        <Button
+                            fullWidth
+                            color="secondary"
+                            variant="contained"
+                            onClick={this.onSubmit}
+                        >
+                            Add
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Paper>
         );
     }
 }
