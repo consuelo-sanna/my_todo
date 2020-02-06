@@ -14,6 +14,8 @@ const initialState = {
         id: 0,
         title: '',
     },
+    user: null, //avra email e token
+    isAuthenticated: false,
 };
 
 function todoApp(state = initialState, action) {

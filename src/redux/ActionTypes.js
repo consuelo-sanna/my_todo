@@ -1,30 +1,17 @@
 /* Dove elenchi le action */
 
-const ADD_TODO = 'ADD_TODO';
-const EDIT_TODO = 'EDIT_TODO';
-const DEL_TODO = 'DEL_TODO';
-const MARK_TODO = 'MARK_TODO';
-const UPDATE_TEXT = 'UPDATE_TEXT';
-const MOD_TEXT = 'MOD_TEXT';
+//intercettate da saga
+export const ADD_TODO = 'ADD_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
+export const DEL_TODO = 'DEL_TODO';
+export const MARK_TODO = 'MARK_TODO';
+export const UPDATE_TEXT = 'UPDATE_TEXT';
+export const MOD_TEXT = 'MOD_TEXT';
 
-const GET_TODOS = 'GET_TODOS';
-const GET_TODOS_SUCCESS = 'GET_TODOS_SUCCESS';
-const DEL_TODO_SUCCESS = 'DEL_TODO_SUCCESS';
-const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
-const EDIT_TODO_SUCCESS = 'EDIT_TODO_SUCCESS';
-const MARK_TODO_SUCCESS = 'MARK_TODO_SUCCESS';
-
-export {
-    ADD_TODO,
-    EDIT_TODO,
-    DEL_TODO,
-    MARK_TODO,
-    UPDATE_TEXT,
-    MOD_TEXT,
-    GET_TODOS,
-    GET_TODOS_SUCCESS,
-    DEL_TODO_SUCCESS,
-    ADD_TODO_SUCCESS,
-    EDIT_TODO_SUCCESS,
-    MARK_TODO_SUCCESS,
-};
+//intercettate da reducer todos
+export const GET_TODOS = 'GET_TODOS';
+export const GET_TODOS_SUCCESS = 'GET_TODOS_SUCCESS';
+export const DEL_TODO_SUCCESS = 'DEL_TODO_SUCCESS';
+export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
+export const EDIT_TODO_SUCCESS = 'EDIT_TODO_SUCCESS';
+export const MARK_TODO_SUCCESS = 'MARK_TODO_SUCCESS';
