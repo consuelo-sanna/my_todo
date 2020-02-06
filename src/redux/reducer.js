@@ -6,6 +6,7 @@ import {
     UPDATE_TEXT,
     GET_TODOS_SUCCESS,
     ADD_TODO_SUCCESS,
+    USER_LOGIN_SUCCESS,
 } from './ActionTypes';
 
 const initialState = {
@@ -77,6 +78,16 @@ function todoApp(state = initialState, action) {
                     id: action.payload.id,
                     title: action.payload.testo,
                 },
+            };
+        case USER_LOGIN_SUCCESS:
+            return {
+                ...state,
+                user: {
+                    id: action.payload.user.id,
+                    email: action.payload.user.email,
+                    token: action.payload.token,
+                },
+                isAuthenticated: true,
             };
         default:
             return state;

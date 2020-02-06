@@ -7,21 +7,22 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import {
     ADD_TODO,
     EDIT_TODO,
-    MOD_TEXT,
     DEL_TODO,
     MARK_TODO,
-    UPDATE_TEXT,
     GET_TODOS,
     GET_TODOS_SUCCESS,
     DEL_TODO_SUCCESS,
     ADD_TODO_SUCCESS,
     EDIT_TODO_SUCCESS,
     MARK_TODO_SUCCESS,
+    USER_LOGIN_ATTEMPT,
+    USER_LOGIN_SUCCESS,
 } from '../ActionTypes';
 
 export const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const urlTodos = 'http://localhost:5000/api/todos';
+const urlAuth = 'http://localhost:5000/api/auth';
 
 // Our worker Saga: will perform the async mark task
 
@@ -90,13 +91,22 @@ export function* delAsync(action) {
     yield put({ type: DEL_TODO_SUCCESS, payload: action.payload });
 }
 
-export function* updateAsync() {
-    yield call(delay, 200);
-    console.log('sono dentro update async di saga');
-}
-export function* modAsync() {
-    yield call(delay, 200);
-    console.log('sono dentro mod async di saga');
+// saga controlla se l'utente esiste e in quel caso fa dispatch login_success
+export function* attemptLogin(action) {
+    const userData = {
+        email: action.payload.email,
+        password: action.payload.password,
+    };
+    const response = yield fetch(urlAuth, {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(res => res.json());
+    console.log(JSON.stringify(response));
+
+    yield put({ type: USER_LOGIN_SUCCESS, payload: response });
 }
 
 export default function* rootSaga() {
@@ -104,7 +114,6 @@ export default function* rootSaga() {
     yield takeEvery(ADD_TODO, addAsync);
     yield takeEvery(EDIT_TODO, editAsync);
     yield takeEvery(DEL_TODO, delAsync);
-    yield takeEvery(UPDATE_TEXT, updateAsync);
-    yield takeEvery(MOD_TEXT, modAsync);
     yield takeEvery(GET_TODOS, getAll);
+    yield takeEvery(USER_LOGIN_ATTEMPT, attemptLogin);
 }

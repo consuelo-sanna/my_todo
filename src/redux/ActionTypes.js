@@ -15,3 +15,8 @@ export const DEL_TODO_SUCCESS = 'DEL_TODO_SUCCESS';
 export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
 export const EDIT_TODO_SUCCESS = 'EDIT_TODO_SUCCESS';
 export const MARK_TODO_SUCCESS = 'MARK_TODO_SUCCESS';
+
+//per autenticazione
+export const USER_LOGIN_ATTEMPT = 'USER_LOGIN';
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -8,6 +8,8 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { connect } from 'react-redux';
+import { user_login_attempt } from '../redux/ActionCreators';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -29,8 +31,16 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Login(props) {
+function Login(props) {
     const classes = useStyles();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        props.user_login(email, password);
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -41,12 +51,18 @@ export default function Login(props) {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form
+                        className={classes.form}
+                        noValidate
+                        onSubmit={handleSubmit}
+                    >
                         <TextField
                             variant="outlined"
                             required
                             fullWidth
                             id="email"
+                            value={email}
+                            onInput={e => setEmail(e.target.value)}
                             label="Email Address"
                             name="email"
                             autoComplete="email"
@@ -62,6 +78,8 @@ export default function Login(props) {
                             label="Password"
                             type="password"
                             id="password"
+                            value={password}
+                            onInput={e => setPassword(e.target.value)}
                             autoComplete="current-password"
                         />
 
@@ -80,3 +98,17 @@ export default function Login(props) {
         </Container>
     );
 }
+
+const mapDispatchToProps = dispatch => ({
+    user_login: (email, password) =>
+        dispatch(user_login_attempt(email, password)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+/** on click deve recuperare i dati dal form e fare un dispatch su saga
+ *  saga controlla se l'utente esiste e in quel caso fa dispatch
+ *  il dispatch viene intercettato da reducer che salva il token e imposta i dati dell utente
+ *  (qui in automatico react dovrebbe sentire la modifica e agire di conseguenza)
+ *  ma non credo succederà, quindi chi fa una redirect sull altra pagina?
+ */

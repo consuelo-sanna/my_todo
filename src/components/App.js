@@ -22,6 +22,19 @@ const SecretRoute = ({ component: Component, ...rest }) => (
     />
 );
 
+const SecretRouteOk = ({ component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={props =>
+            rest.isAuthenticated ? (
+                <Redirect to="/" />
+            ) : (
+                <Component {...props} />
+            )
+        }
+    />
+);
+
 class App extends Component {
     render() {
         return (
@@ -29,7 +42,14 @@ class App extends Component {
                 <NavBar />
                 <header className="App-header">
                     <Switch>
-                        <Route exact path="/auth" component={Login} />
+                        <SecretRouteOk
+                            exact
+                            path="/auth"
+                            component={Login}
+                            isAuthenticated={
+                                this.props.isAuthenticated
+                            }
+                        />
                         <SecretRoute
                             path="/"
                             component={MainTodo}

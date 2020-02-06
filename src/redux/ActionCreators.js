@@ -13,6 +13,8 @@ import {
     ADD_TODO_SUCCESS,
     EDIT_TODO_SUCCESS,
     MARK_TODO_SUCCESS,
+    USER_LOGIN_ATTEMPT,
+    USER_LOGIN_SUCCESS,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -72,4 +74,14 @@ export const edit_todo_success = response => ({
 export const mark_todo_success = id => ({
     type: MARK_TODO_SUCCESS,
     payload: id,
+});
+
+export const user_login_attempt = (email, password) => ({
+    type: USER_LOGIN_ATTEMPT,
+    payload: { email, password },
+});
+
+export const user_login_success = response => ({
+    type: USER_LOGIN_SUCCESS,
+    payload: response,
 });
