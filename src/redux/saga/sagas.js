@@ -45,7 +45,10 @@ export const headersConfig = () => {
 export function* getAll() {
     console.log('sono dentro getall');
     try {
-        const response = yield call(fetch, urlTodos);
+        const response = yield fetch(urlTodos, {
+            method: 'GET',
+            headers: headersConfig().headers,
+        });
         const body = yield call([response, response.json]);
         console.log(body); // array con i miei todos
         yield put({ type: GET_TODOS_SUCCESS, payload: body });
@@ -59,9 +62,7 @@ export function* addAsync(action) {
     const response = yield fetch(urlTodos, {
         method: 'POST',
         body: JSON.stringify(newTodo),
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: headersConfig().headers,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
 
@@ -69,7 +70,10 @@ export function* addAsync(action) {
 }
 
 export function* markAsync(action) {
-    const elemento = yield fetch(urlTodos + '/' + action.payload);
+    const elemento = yield fetch(urlTodos + '/' + action.payload, {
+        method: 'GET',
+        headers: headersConfig().headers,
+    });
     const body = yield call([elemento, elemento.json]);
     const marked = {
         testo: body.testo,
@@ -78,9 +82,7 @@ export function* markAsync(action) {
     const response = yield fetch(urlTodos + '/' + action.payload, {
         method: 'PUT',
         body: JSON.stringify(marked),
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: headersConfig().headers,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
     yield put({ type: MARK_TODO_SUCCESS, payload: action.payload });
@@ -90,9 +92,7 @@ export function* editAsync(action) {
     const response = yield fetch(urlTodos + '/' + action.payload.id, {
         method: 'PUT',
         body: JSON.stringify(action.payload),
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: headersConfig().headers,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
     yield put({ type: EDIT_TODO_SUCCESS, payload: action.payload });
