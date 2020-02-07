@@ -8,8 +8,12 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import { connect } from 'react-redux';
 import { user_login_attempt } from '../redux/ActionCreators';
+
+import { getErrors } from '../redux/selectors/index';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -29,6 +33,16 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    error: {
+        color: theme.palette.secondary.main,
+        marginTop: theme.spacing(1),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    root: {
+        flexGrow: 1,
+    },
 }));
 
 function Login(props) {
@@ -44,7 +58,7 @@ function Login(props) {
 
     return (
         <Container component="main" maxWidth="xs">
-            <Card color="inherit">
+            <Card>
                 <CssBaseline />
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}></Avatar>
@@ -92,6 +106,34 @@ function Login(props) {
                         >
                             Sign In
                         </Button>
+
+                        <Grid
+                            container
+                            direction="column"
+                            justify="flex-start"
+                            alignItems="stretch"
+                        >
+                            <div className={classes.root}>
+                                {props.errors ? (
+                                    <div>
+                                        {props.errors.map(err => (
+                                            <Grid item>{err}</Grid>
+                                        ))}
+
+                                        <Grid item>
+                                            <Link
+                                                href="#"
+                                                variant="body2"
+                                            >
+                                                {
+                                                    "Don't have an account? Sign Up"
+                                                }
+                                            </Link>
+                                        </Grid>
+                                    </div>
+                                ) : null}
+                            </div>
+                        </Grid>
                     </form>
                 </div>
             </Card>
@@ -99,16 +141,13 @@ function Login(props) {
     );
 }
 
+const mapStateToProps = state => ({
+    errors: getErrors(state),
+});
+
 const mapDispatchToProps = dispatch => ({
     user_login: (email, password) =>
         dispatch(user_login_attempt(email, password)),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
-
-/** on click deve recuperare i dati dal form e fare un dispatch su saga
- *  saga controlla se l'utente esiste e in quel caso fa dispatch
- *  il dispatch viene intercettato da reducer che salva il token e imposta i dati dell utente
- *  (qui in automatico react dovrebbe sentire la modifica e agire di conseguenza)
- *  ma non credo succederà, quindi chi fa una redirect sull altra pagina?
- */
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

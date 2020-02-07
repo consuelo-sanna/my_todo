@@ -7,6 +7,7 @@ import {
     GET_TODOS_SUCCESS,
     ADD_TODO_SUCCESS,
     USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAILED,
 } from './ActionTypes';
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
     },
     user: null, //avra email e token
     isAuthenticated: false,
+    msg: [],
 };
 
 function todoApp(state = initialState, action) {
@@ -80,6 +82,7 @@ function todoApp(state = initialState, action) {
                 },
             };
         case USER_LOGIN_SUCCESS:
+            localStorage.setItem('jwtToken', action.payload.token);
             return {
                 ...state,
                 user: {
@@ -88,6 +91,13 @@ function todoApp(state = initialState, action) {
                     token: action.payload.token,
                 },
                 isAuthenticated: true,
+            };
+        case USER_LOGIN_FAILED:
+            return {
+                ...state,
+                msg: [action.payload.msg, ...state.msg],
+
+                isAuthenticated: false,
             };
         default:
             return state;

@@ -15,6 +15,7 @@ import {
     MARK_TODO_SUCCESS,
     USER_LOGIN_ATTEMPT,
     USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAILED,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -83,5 +84,10 @@ export const user_login_attempt = (email, password) => ({
 
 export const user_login_success = response => ({
     type: USER_LOGIN_SUCCESS,
+    payload: response,
+});
+
+export const user_login_failed = response => ({
+    type: USER_LOGIN_FAILED,
     payload: response,
 });

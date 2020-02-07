@@ -17,6 +17,7 @@ import {
     MARK_TODO_SUCCESS,
     USER_LOGIN_ATTEMPT,
     USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAILED,
 } from '../ActionTypes';
 
 export const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -24,7 +25,21 @@ export const delay = ms => new Promise(res => setTimeout(res, ms));
 const urlTodos = 'http://localhost:5000/api/todos';
 const urlAuth = 'http://localhost:5000/api/auth';
 
-// Our worker Saga: will perform the async mark task
+export const headersConfig = () => {
+    // Get token from local storage
+    const token = localStorage.getItem('jwtToken');
+    //Headers
+    const config = {
+        headers: {
+            'Content-type': 'application/json',
+        },
+    };
+    // if token, add to headers
+    if (token) {
+        config.headers['x-auth-token'] = token;
+    }
+    return config;
+};
 
 //fetch get del server, ricevuta la risposta fa un dispatch per reducer redux
 export function* getAll() {
@@ -86,6 +101,7 @@ export function* editAsync(action) {
 export function* delAsync(action) {
     const response = yield fetch(urlTodos + '/' + action.payload, {
         method: 'DELETE',
+        headers: headersConfig().headers,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
     yield put({ type: DEL_TODO_SUCCESS, payload: action.payload });
@@ -93,6 +109,7 @@ export function* delAsync(action) {
 
 // saga controlla se l'utente esiste e in quel caso fa dispatch login_success
 export function* attemptLogin(action) {
+    var isSuccess = null;
     const userData = {
         email: action.payload.email,
         password: action.payload.password,
@@ -103,10 +120,15 @@ export function* attemptLogin(action) {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then(res => res.json());
-    console.log(JSON.stringify(response));
-
-    yield put({ type: USER_LOGIN_SUCCESS, payload: response });
+    }).then(res => {
+        isSuccess = res.status === 200;
+        return res.json();
+    });
+    if (isSuccess) {
+        yield put({ type: USER_LOGIN_SUCCESS, payload: response });
+    } else {
+        yield put({ type: USER_LOGIN_FAILED, payload: response });
+    }
 }
 
 export default function* rootSaga() {
