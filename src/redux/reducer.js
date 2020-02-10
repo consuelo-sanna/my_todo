@@ -11,6 +11,7 @@ import {
     USER_LOGOUT,
     USER_REGISTRATION_SUCCESS,
     USER_REGISTRATION_FAILED,
+    USER_CHECK_SUCCESS,
 } from './ActionTypes';
 
 const initialState = {
@@ -128,6 +129,16 @@ function todoApp(state = initialState, action) {
                 msg: [action.payload.msg, ...state.msg],
 
                 isAuthenticated: false,
+            };
+        case USER_CHECK_SUCCESS:
+            return {
+                ...state,
+                user: {
+                    id: action.payload.id,
+                    email: action.payload.email,
+                    token: action.payload.token,
+                },
+                isAuthenticated: true,
             };
         default:
             return state;

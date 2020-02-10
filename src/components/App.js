@@ -9,6 +9,7 @@ import '../App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getIsAuthenticated } from '../redux/selectors/index';
+import { user_check_token } from '../redux/ActionCreators';
 
 /** Voglio andare alla home ma non sono autenticato */
 const AuthRoute = ({ component: Component, ...rest }) => (
@@ -39,6 +40,19 @@ const AuthRouteOk = ({ component: Component, ...rest }) => (
 );
 
 class App extends Component {
+    /** Prende isAuthenticated e controlla se lo è. se NON lo è controlla se c'è un token nel localstore
+     *  se c'è un token lo manda al server per vedere se è valido (attraverso GET api/auth/user), se è valido ->autentica
+     *  se non è valido rimanda al Login
+     */
+
+    componentDidMount() {
+        console.log('autenticazione: ' + this.props.isAuthenticated);
+        const token = localStorage.getItem('jwtToken');
+        if (!this.props.isAuthenticated && token) {
+            this.props.check_token(token);
+        }
+    }
+
     render() {
         return (
             <div className="App">
@@ -83,5 +97,9 @@ const mapStateToProps = state => ({
     isAuthenticated: getIsAuthenticated(state),
 });
 
+const mapDispatchToProps = dispatch => ({
+    check_token: token => dispatch(user_check_token(token)),
+});
+
 //connetti le eventuali cose che dispatchi.. (forse nulla)
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

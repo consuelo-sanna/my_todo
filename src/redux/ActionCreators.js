@@ -20,6 +20,8 @@ import {
     USER_REGISTRATION_ATTEMPT,
     USER_REGISTRATION_SUCCESS,
     USER_REGISTRATION_FAILED,
+    USER_CHECK_TOKEN,
+    USER_CHECK_SUCCESS,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -117,5 +119,15 @@ export const user_registration_success = response => ({
 
 export const user_registration_failed = response => ({
     type: USER_REGISTRATION_FAILED,
+    payload: response,
+});
+
+export const user_check_token = token => ({
+    type: USER_CHECK_TOKEN,
+    payload: token,
+});
+
+export const user_check_success = response => ({
+    type: USER_CHECK_SUCCESS,
     payload: response,
 });
