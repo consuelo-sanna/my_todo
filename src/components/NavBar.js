@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { getUser } from '../redux/selectors/index';
 
+import { user_logout } from '../redux/ActionCreators';
+
 /**
  * Per il login ecc, riconosco da local storage o ne abuserei?
  */
@@ -29,6 +31,7 @@ const NavBar = props => {
             color="inherit"
             onClick={() => {
                 localStorage.clear(); //devi anche cancellare user e isAuthenticated da reducer.. fai un dispatch verso reducer, creati l azione ecc
+                props.user_logout();
             }}
         >
             Logout
@@ -54,8 +57,12 @@ const NavBar = props => {
     );
 };
 
+const mapDispatchToProps = dispatch => ({
+    user_logout: () => dispatch(user_logout()),
+});
+
 const mapStateToProps = state => ({
     user: getUser(state),
 });
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

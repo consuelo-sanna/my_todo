@@ -8,6 +8,7 @@ import {
     ADD_TODO_SUCCESS,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILED,
+    USER_LOGOUT,
 } from './ActionTypes';
 
 const initialState = {
@@ -97,6 +98,12 @@ function todoApp(state = initialState, action) {
                 ...state,
                 msg: [action.payload.msg, ...state.msg],
 
+                isAuthenticated: false,
+            };
+        case USER_LOGOUT:
+            return {
+                ...state,
+                user: null,
                 isAuthenticated: false,
             };
         default:

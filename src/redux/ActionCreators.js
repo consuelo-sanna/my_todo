@@ -16,6 +16,7 @@ import {
     USER_LOGIN_ATTEMPT,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILED,
+    USER_LOGOUT,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -90,4 +91,8 @@ export const user_login_success = response => ({
 export const user_login_failed = response => ({
     type: USER_LOGIN_FAILED,
     payload: response,
+});
+
+export const user_logout = () => ({
+    type: USER_LOGOUT,
 });
