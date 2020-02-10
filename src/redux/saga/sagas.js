@@ -46,10 +46,12 @@ export const headersConfig = () => {
 };
 
 //fetch get del server, ricevuta la risposta fa un dispatch per reducer redux
-export function* getAll() {
-    console.log('sono dentro getall');
+// devi dare anche l user
+export function* getByUser() {
+    const user = localStorage.getItem('user');
+    console.log('sono dentro getall, user : ' + user);
     try {
-        const response = yield fetch(urlTodos, {
+        const response = yield fetch(urlTodos + '/' + user, {
             method: 'GET',
             headers: headersConfig().headers,
         });
@@ -62,7 +64,8 @@ export function* getAll() {
 }
 
 export function* addAsync(action) {
-    const newTodo = { testo: action.payload };
+    const user = localStorage.getItem('user');
+    const newTodo = { testo: action.payload, user: user };
     const response = yield fetch(urlTodos, {
         method: 'POST',
         body: JSON.stringify(newTodo),
@@ -74,22 +77,19 @@ export function* addAsync(action) {
 }
 
 export function* markAsync(action) {
-    const elemento = yield fetch(urlTodos + '/' + action.payload, {
-        method: 'GET',
-        headers: headersConfig().headers,
-    });
-    const body = yield call([elemento, elemento.json]);
     const marked = {
-        testo: body.testo,
-        completed: !body.completed,
+        completed: !action.payload.completed,
     };
-    const response = yield fetch(urlTodos + '/' + action.payload, {
+    const response = yield fetch(urlTodos + '/' + action.payload.id, {
         method: 'PUT',
         body: JSON.stringify(marked),
         headers: headersConfig().headers,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
-    yield put({ type: MARK_TODO_SUCCESS, payload: action.payload });
+    yield put({
+        type: MARK_TODO_SUCCESS,
+        payload: action.payload.id,
+    });
 }
 
 export function* editAsync(action) {
@@ -172,7 +172,7 @@ export default function* rootSaga() {
     yield takeEvery(ADD_TODO, addAsync);
     yield takeEvery(EDIT_TODO, editAsync);
     yield takeEvery(DEL_TODO, delAsync);
-    yield takeEvery(GET_TODOS, getAll);
+    yield takeEvery(GET_TODOS, getByUser);
     yield takeEvery(USER_LOGIN_ATTEMPT, attemptLogin);
     yield takeEvery(USER_REGISTRATION_ATTEMPT, attemptRegistration);
 }

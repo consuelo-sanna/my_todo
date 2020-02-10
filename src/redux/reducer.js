@@ -87,6 +87,7 @@ function todoApp(state = initialState, action) {
             };
         case USER_LOGIN_SUCCESS:
             localStorage.setItem('jwtToken', action.payload.token);
+            localStorage.setItem('user', action.payload.user.email);
             return {
                 ...state,
                 user: {
@@ -111,6 +112,7 @@ function todoApp(state = initialState, action) {
             };
         case USER_REGISTRATION_SUCCESS:
             localStorage.setItem('jwtToken', action.payload.token);
+            localStorage.setItem('user', action.payload.user.email);
             return {
                 ...state,
                 user: {
