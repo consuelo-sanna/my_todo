@@ -37,9 +37,9 @@ export const mod_text = (testo, id) => ({
     payload: { testo, id, completed: false },
 });
 
-export const mark_todo = id => ({
+export const mark_todo = (id, completed) => ({
     type: MARK_TODO,
-    payload: id,
+    payload: { id, completed },
 });
 
 export const update_text = (testo, id) => ({

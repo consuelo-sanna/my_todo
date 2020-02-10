@@ -44,8 +44,8 @@ class MainTodo extends Component {
         store.dispatch(update_text(testo, id));
     };
 
-    markComplete = id => {
-        store.dispatch(mark_todo(id));
+    markComplete = (id, completed) => {
+        store.dispatch(mark_todo(id, completed));
     };
 
     delItem = id => {

@@ -14,7 +14,12 @@ function TodoItem(props) {
                 <Paper style={{ margin: 2, padding: 12 }}>
                     <Grid container justify="space-between">
                         <Checkbox
-                            onChange={() => props.markComplete(_id)}
+                            onChange={() =>
+                                props.markComplete(
+                                    _id,
+                                    props.todo.completed
+                                )
+                            }
                             value="primary"
                             inputProps={{
                                 'aria-label': 'primary checkbox',
