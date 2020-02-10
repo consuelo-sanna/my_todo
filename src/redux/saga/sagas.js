@@ -18,12 +18,16 @@ import {
     USER_LOGIN_ATTEMPT,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILED,
+    USER_REGISTRATION_ATTEMPT,
+    USER_REGISTRATION_FAILED,
+    USER_REGISTRATION_SUCCESS,
 } from '../ActionTypes';
 
 export const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const urlTodos = 'http://localhost:5000/api/todos';
 const urlAuth = 'http://localhost:5000/api/auth';
+const urlReg = 'http://localhost:5000/api/users';
 
 export const headersConfig = () => {
     // Get token from local storage
@@ -131,6 +135,38 @@ export function* attemptLogin(action) {
     }
 }
 
+// ancora non inserisce nome e cognome
+export function* attemptRegistration(action) {
+    var isSuccess = null;
+    const userData = {
+        name: action.payload.name,
+        lastname: action.payload.lastname,
+        email: action.payload.email,
+        password: action.payload.password,
+    };
+    const response = yield fetch(urlReg, {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(res => {
+        isSuccess = res.status === 200;
+        return res.json();
+    });
+    if (isSuccess) {
+        yield put({
+            type: USER_REGISTRATION_SUCCESS,
+            payload: response,
+        });
+    } else {
+        yield put({
+            type: USER_REGISTRATION_FAILED,
+            payload: response,
+        });
+    }
+}
+
 export default function* rootSaga() {
     yield takeEvery(MARK_TODO, markAsync);
     yield takeEvery(ADD_TODO, addAsync);
@@ -138,4 +174,5 @@ export default function* rootSaga() {
     yield takeEvery(DEL_TODO, delAsync);
     yield takeEvery(GET_TODOS, getAll);
     yield takeEvery(USER_LOGIN_ATTEMPT, attemptLogin);
+    yield takeEvery(USER_REGISTRATION_ATTEMPT, attemptRegistration);
 }

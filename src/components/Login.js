@@ -122,11 +122,11 @@ function Login(props) {
 
                                         <Grid item>
                                             <Link
-                                                href="#"
+                                                href="/reg"
                                                 variant="body2"
                                             >
                                                 {
-                                                    "Don't have an account? Sign Up"
+                                                    'Non hai un account? Registrati'
                                                 }
                                             </Link>
                                         </Grid>

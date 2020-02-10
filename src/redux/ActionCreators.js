@@ -17,6 +17,9 @@ import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILED,
     USER_LOGOUT,
+    USER_REGISTRATION_ATTEMPT,
+    USER_REGISTRATION_SUCCESS,
+    USER_REGISTRATION_FAILED,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -95,4 +98,24 @@ export const user_login_failed = response => ({
 
 export const user_logout = () => ({
     type: USER_LOGOUT,
+});
+
+export const user_registration_attempt = (
+    name,
+    lastname,
+    email,
+    password
+) => ({
+    type: USER_REGISTRATION_ATTEMPT,
+    payload: { name, lastname, email, password },
+});
+
+export const user_registration_success = response => ({
+    type: USER_REGISTRATION_SUCCESS,
+    payload: response,
+});
+
+export const user_registration_failed = response => ({
+    type: USER_REGISTRATION_FAILED,
+    payload: response,
 });

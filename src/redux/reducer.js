@@ -9,6 +9,8 @@ import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILED,
     USER_LOGOUT,
+    USER_REGISTRATION_SUCCESS,
+    USER_REGISTRATION_FAILED,
 } from './ActionTypes';
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
     msg: [],
 };
 
+/** user login success e registration success fanno la stessa cosa.. identica */
 function todoApp(state = initialState, action) {
     switch (action.type) {
         case GET_TODOS_SUCCESS:
@@ -104,6 +107,24 @@ function todoApp(state = initialState, action) {
             return {
                 ...state,
                 user: null,
+                isAuthenticated: false,
+            };
+        case USER_REGISTRATION_SUCCESS:
+            localStorage.setItem('jwtToken', action.payload.token);
+            return {
+                ...state,
+                user: {
+                    id: action.payload.user.id,
+                    email: action.payload.user.email,
+                    token: action.payload.token,
+                },
+                isAuthenticated: true,
+            };
+        case USER_REGISTRATION_FAILED:
+            return {
+                ...state,
+                msg: [action.payload.msg, ...state.msg],
+
                 isAuthenticated: false,
             };
         default:

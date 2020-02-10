@@ -3,15 +3,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { getUser } from '../redux/selectors/index';
 
 import { user_logout } from '../redux/ActionCreators';
 
-/**
- * Per il login ecc, riconosco da local storage o ne abuserei?
- */
 const useStyles = makeStyles(theme => ({
     title: {
         flexGrow: 1,
@@ -25,12 +23,16 @@ const NavBar = props => {
     const classes = useStyles();
     const user = props.user;
 
-    const guestLinks = <Button color="inherit">Login</Button>;
+    const guestLinks = (
+        <Link href="/auth" variant="body2" color="inherit">
+            Login
+        </Link>
+    );
     const authLinks = (
         <Button
             color="inherit"
             onClick={() => {
-                localStorage.clear(); //devi anche cancellare user e isAuthenticated da reducer.. fai un dispatch verso reducer, creati l azione ecc
+                localStorage.clear();
                 props.user_logout();
             }}
         >

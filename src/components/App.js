@@ -4,12 +4,14 @@ import React, { Component } from 'react';
 import NavBar from './NavBar';
 import Login from './Login';
 import MainTodo from './MainTodo';
+import Registration from './Registration';
 import '../App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getIsAuthenticated } from '../redux/selectors/index';
 
-const SecretRoute = ({ component: Component, ...rest }) => (
+/** Voglio andare alla home ma non sono autenticato */
+const AuthRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
@@ -22,7 +24,8 @@ const SecretRoute = ({ component: Component, ...rest }) => (
     />
 );
 
-const SecretRouteOk = ({ component: Component, ...rest }) => (
+/** Mi sono autenticato, quindi mi manda alla home */
+const AuthRouteOk = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
@@ -42,7 +45,14 @@ class App extends Component {
                 <NavBar />
                 <header className="App-header">
                     <Switch>
-                        <SecretRouteOk
+                        <AuthRouteOk
+                            path="/reg"
+                            component={Registration}
+                            isAuthenticated={
+                                this.props.isAuthenticated
+                            }
+                        />
+                        <AuthRouteOk
                             exact
                             path="/auth"
                             component={Login}
@@ -50,13 +60,14 @@ class App extends Component {
                                 this.props.isAuthenticated
                             }
                         />
-                        <SecretRoute
+                        <AuthRoute
                             path="/"
                             component={MainTodo}
                             isAuthenticated={
                                 this.props.isAuthenticated
                             }
                         />
+
                         <Redirect to="/" />
                     </Switch>
                 </header>
