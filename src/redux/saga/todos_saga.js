@@ -8,8 +8,8 @@ import {
     mark_todo_success,
 } from '../ActionCreators';
 
-import { baseUrl } from '../../shared/baseUrl';
-import { headersConfig } from '../../shared/helper';
+import { baseUrl } from '../shared/baseUrl';
+import { headersConfig } from '../shared/helper';
 
 const urlTodos = baseUrl + '/api/todos';
 

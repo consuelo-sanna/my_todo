@@ -8,8 +8,8 @@ import {
     user_registration_failed,
 } from '../ActionCreators';
 
-import { baseUrl } from '../../shared/baseUrl';
-import { headersConfig } from '../../shared/helper';
+import { baseUrl } from '../shared/baseUrl';
+import { headersConfig } from '../shared/helper';
 
 const urlAuth = baseUrl + '/api/auth';
 const urlReg = baseUrl + '/api/users';
