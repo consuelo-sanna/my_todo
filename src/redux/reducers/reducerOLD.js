@@ -14,7 +14,7 @@ import {
     USER_REGISTRATION_SUCCESS,
     USER_REGISTRATION_FAILED,
     USER_CHECK_SUCCESS,
-} from './ActionTypes';
+} from '../ActionTypes';
 
 const initialState = {
     todos: [],
