@@ -8,25 +8,12 @@ import {
     user_registration_failed,
 } from '../ActionCreators';
 
-const urlAuth = 'http://localhost:5000/api/auth';
-const urlReg = 'http://localhost:5000/api/users';
-const urlAuthCheck = 'http://localhost:5000/api/auth/user';
+import { baseUrl } from '../../shared/baseUrl';
+import { headersConfig } from '../../shared/helper';
 
-export const headersConfig = () => {
-    // Get token from local storage
-    const token = localStorage.getItem('jwtToken');
-    //Headers
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-        },
-    };
-    // if token, add to headers
-    if (token) {
-        config.headers['x-auth-token'] = token;
-    }
-    return config;
-};
+const urlAuth = baseUrl + '/api/auth';
+const urlReg = baseUrl + '/api/users';
+const urlAuthCheck = baseUrl + '/api/auth/user';
 
 export function* attemptLogin(action) {
     let isSuccess = null;

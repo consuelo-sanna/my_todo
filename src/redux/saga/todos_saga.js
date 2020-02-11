@@ -8,23 +8,10 @@ import {
     mark_todo_success,
 } from '../ActionCreators';
 
-const urlTodos = 'http://localhost:5000/api/todos';
+import { baseUrl } from '../../shared/baseUrl';
+import { headersConfig } from '../../shared/helper';
 
-export const headersConfig = () => {
-    // Get token from local storage
-    const token = localStorage.getItem('jwtToken');
-    //Headers
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-        },
-    };
-    // if token, add to headers
-    if (token) {
-        config.headers['x-auth-token'] = token;
-    }
-    return config;
-};
+const urlTodos = baseUrl + '/api/todos';
 
 //fetch get del server, ricevuta la risposta fa un dispatch per reducer redux
 // devi dare anche l user
