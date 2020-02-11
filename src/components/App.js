@@ -40,11 +40,6 @@ const AuthRouteOk = ({ component: Component, ...rest }) => (
 );
 
 class App extends Component {
-    /** Prende isAuthenticated e controlla se lo è. se NON lo è controlla se c'è un token nel localstore
-     *  se c'è un token lo manda al server per vedere se è valido (attraverso GET api/auth/user), se è valido ->autentica
-     *  se non è valido rimanda al Login
-     */
-
     componentDidMount() {
         console.log('autenticazione: ' + this.props.isAuthenticated);
         const token = localStorage.getItem('jwtToken');
