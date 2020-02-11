@@ -16,6 +16,11 @@ const useStyles = makeStyles(theme => ({
     },
     root: {
         flexGrow: 1,
+        paddingTop: 56,
+    },
+    stickyNav: {
+        position: 'fixed',
+        top: 0,
     },
 }));
 
@@ -42,7 +47,7 @@ const NavBar = props => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="sticky">
+            <AppBar className={classes.stickyNav}>
                 <Toolbar>
                     <Typography
                         variant="h6"
