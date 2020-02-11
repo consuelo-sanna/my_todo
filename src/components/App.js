@@ -2,9 +2,8 @@
 
 import React, { Component } from 'react';
 import NavBar from './NavBar';
-import Login from './Login';
+import Authentication from './Authentication';
 import MainTodo from './MainTodo';
-import Registration from './Registration';
 import '../App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -55,16 +54,9 @@ class App extends Component {
                 <header className="App-header">
                     <Switch>
                         <AuthRouteOk
-                            path="/reg"
-                            component={Registration}
-                            isAuthenticated={
-                                this.props.isAuthenticated
-                            }
-                        />
-                        <AuthRouteOk
                             exact
                             path="/auth"
-                            component={Login}
+                            component={Authentication}
                             isAuthenticated={
                                 this.props.isAuthenticated
                             }
