@@ -19,7 +19,6 @@ const initialState = {
 export default function(state = initialState, action) {
     switch (action.type) {
         case GET_TODOS_SUCCESS:
-            console.log('sono entrato in get todos success');
             return {
                 ...state,
                 todos: action.payload,

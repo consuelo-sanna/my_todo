@@ -10,20 +10,23 @@ import {
     DEL_TODO,
     MARK_TODO,
     GET_TODOS,
-    GET_TODOS_SUCCESS,
-    DEL_TODO_SUCCESS,
-    ADD_TODO_SUCCESS,
-    EDIT_TODO_SUCCESS,
-    MARK_TODO_SUCCESS,
     USER_LOGIN_ATTEMPT,
-    USER_LOGIN_SUCCESS,
-    USER_LOGIN_FAILED,
     USER_REGISTRATION_ATTEMPT,
-    USER_REGISTRATION_FAILED,
-    USER_REGISTRATION_SUCCESS,
     USER_CHECK_TOKEN,
-    USER_CHECK_SUCCESS,
 } from '../ActionTypes';
+
+import {
+    user_check_success,
+    get_todos_success,
+    del_todo_success,
+    add_todo_success,
+    edit_todo_success,
+    mark_todo_success,
+    user_login_success,
+    user_login_failed,
+    user_registration_success,
+    user_registration_failed,
+} from '../ActionCreators';
 
 export const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -52,15 +55,13 @@ export const headersConfig = () => {
 // devi dare anche l user
 export function* getByUser() {
     const user = localStorage.getItem('user');
-    console.log('sono dentro getall, user : ' + user);
     try {
         const response = yield fetch(urlTodos + '/' + user, {
             method: 'GET',
             headers: headersConfig().headers,
         });
         const body = yield call([response, response.json]);
-        console.log(body); // array con i miei todos
-        yield put({ type: GET_TODOS_SUCCESS, payload: body });
+        yield put(get_todos_success(body));
     } catch (e) {
         console.log(e);
     }
@@ -76,7 +77,7 @@ export function* addAsync(action) {
     }).then(res => res.json());
     console.log(JSON.stringify(response));
 
-    yield put({ type: ADD_TODO_SUCCESS, payload: response });
+    yield put(add_todo_success(response));
 }
 
 export function* markAsync(action) {
@@ -89,10 +90,7 @@ export function* markAsync(action) {
         headers: headersConfig().headers,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
-    yield put({
-        type: MARK_TODO_SUCCESS,
-        payload: action.payload.id,
-    });
+    yield put(mark_todo_success(action.payload.id));
 }
 
 export function* editAsync(action) {
@@ -102,7 +100,7 @@ export function* editAsync(action) {
         headers: headersConfig().headers,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
-    yield put({ type: EDIT_TODO_SUCCESS, payload: action.payload });
+    yield put(edit_todo_success(action.payload));
 }
 
 export function* delAsync(action) {
@@ -111,10 +109,9 @@ export function* delAsync(action) {
         headers: headersConfig().headers,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
-    yield put({ type: DEL_TODO_SUCCESS, payload: action.payload });
+    yield put(del_todo_success(action.payload));
 }
 
-// saga controlla se l'utente esiste e in quel caso fa dispatch login_success
 export function* attemptLogin(action) {
     var isSuccess = null;
     const userData = {
@@ -132,9 +129,9 @@ export function* attemptLogin(action) {
         return res.json();
     });
     if (isSuccess) {
-        yield put({ type: USER_LOGIN_SUCCESS, payload: response });
+        yield put(user_login_success(response));
     } else {
-        yield put({ type: USER_LOGIN_FAILED, payload: response });
+        yield put(user_login_failed(response));
     }
 }
 
@@ -158,15 +155,9 @@ export function* attemptRegistration(action) {
         return res.json();
     });
     if (isSuccess) {
-        yield put({
-            type: USER_REGISTRATION_SUCCESS,
-            payload: response,
-        });
+        yield put(user_registration_success(response));
     } else {
-        yield put({
-            type: USER_REGISTRATION_FAILED,
-            payload: response,
-        });
+        yield put(user_registration_failed(response));
     }
 }
 
@@ -182,10 +173,7 @@ export function* checkToken() {
         const body = yield call([response, response.json]);
         console.log(body); // array con i miei todos
         if (body.email === user) {
-            yield put({
-                type: USER_CHECK_SUCCESS,
-                payload: { ...body, token },
-            });
+            yield put(user_check_success({ ...body, token }));
         }
     } catch (e) {
         console.log(e);

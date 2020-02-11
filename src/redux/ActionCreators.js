@@ -58,9 +58,9 @@ export const get_todos = () => ({
     type: GET_TODOS,
 });
 
-export const get_todos_success = () => ({
+export const get_todos_success = response => ({
     type: GET_TODOS_SUCCESS,
-    payload: [],
+    payload: response,
 });
 
 export const del_todo_success = id => ({
@@ -83,6 +83,7 @@ export const mark_todo_success = id => ({
     payload: id,
 });
 
+//start User functions
 export const user_login_attempt = (email, password) => ({
     type: USER_LOGIN_ATTEMPT,
     payload: { email, password },
@@ -122,6 +123,7 @@ export const user_registration_failed = response => ({
     payload: response,
 });
 
+//session user
 export const user_check_token = token => ({
     type: USER_CHECK_TOKEN,
     payload: token,
