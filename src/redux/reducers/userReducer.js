@@ -5,6 +5,7 @@ import {
     USER_REGISTRATION_SUCCESS,
     USER_REGISTRATION_FAILED,
     USER_CHECK_SUCCESS,
+    CLEAR_MSG,
 } from '../ActionTypes';
 
 const initialState = {
@@ -30,8 +31,7 @@ export default function(state = initialState, action) {
         case USER_LOGIN_FAILED:
             return {
                 ...state,
-                msg: [action.payload.msg, ...state.msg],
-
+                msg: [action.payload.msg],
                 isAuthenticated: false,
             };
         case USER_LOGOUT:
@@ -55,7 +55,7 @@ export default function(state = initialState, action) {
         case USER_REGISTRATION_FAILED:
             return {
                 ...state,
-                msg: [action.payload.msg, ...state.msg],
+                msg: [action.payload.msg],
 
                 isAuthenticated: false,
             };
@@ -68,6 +68,11 @@ export default function(state = initialState, action) {
                     token: action.payload.token,
                 },
                 isAuthenticated: true,
+            };
+        case CLEAR_MSG:
+            return {
+                ...state,
+                msg: [],
             };
         default:
             return state;

@@ -22,6 +22,7 @@ import {
     USER_REGISTRATION_FAILED,
     USER_CHECK_TOKEN,
     USER_CHECK_SUCCESS,
+    CLEAR_MSG,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -132,4 +133,9 @@ export const user_check_token = token => ({
 export const user_check_success = response => ({
     type: USER_CHECK_SUCCESS,
     payload: response,
+});
+
+//messaggi
+export const clear_msg = () => ({
+    type: CLEAR_MSG,
 });

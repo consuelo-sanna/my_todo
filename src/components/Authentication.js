@@ -14,11 +14,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import { connect } from 'react-redux';
 import {
     user_login_attempt,
     user_registration_attempt,
+    clear_msg,
 } from '../redux/ActionCreators';
 
 import { getErrors } from '../redux/selectors/index';
@@ -171,13 +171,15 @@ function Authentication(props) {
                                 {props.errors ? (
                                     <div>
                                         {props.errors.map(err => (
-                                            <Grid item>{err}</Grid>
+                                            <Grid item key={err}>
+                                                {err}
+                                            </Grid>
                                         ))}
 
                                         <Grid item>
                                             <Button
                                                 onClick={() => {
-                                                    //pulisci i vecchi errori, una nuova dispatch
+                                                    props.clear_msg();
                                                     setIsRegistration(
                                                         !isRegistration
                                                     );
@@ -211,6 +213,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(
             user_registration_attempt(name, lastname, email, password)
         ),
+    clear_msg: () => dispatch(clear_msg()),
 });
 
 export default connect(

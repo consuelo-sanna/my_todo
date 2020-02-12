@@ -28,3 +28,6 @@ export const USER_REGISTRATION_FAILED = 'USER_REGISTRATION_FAILED';
 //per mantenere la sessione
 export const USER_CHECK_TOKEN = 'USER_CHECK_TOKEN';
 export const USER_CHECK_SUCCESS = 'USER_CHECK_SUCCESS';
+
+//per pulire i messaggi
+export const CLEAR_MSG = 'CLEAR_MSG';
