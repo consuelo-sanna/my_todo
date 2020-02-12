@@ -12,8 +12,13 @@
             "jsx": true
         }
     },
-    "rules": {
-        "semi": "error"
-    },
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "plugins": [
+        "react-hooks"
+      ],
+      "rules": {
+        "semi": "error",
+        "react-hooks/rules-of-hooks": "error" // Controlla le regole degli Hooks
+       // "react-hooks/exhaustive-deps": "warn" // Controlla le dipendenze dell'effect.. tolto perche non accettava [] come secondo parametro useEffect
+      }
 }
