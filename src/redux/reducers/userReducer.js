@@ -6,25 +6,26 @@ import {
     USER_REGISTRATION_FAILED,
     USER_CHECK_SUCCESS,
     CLEAR_MSG,
+    NOTIFY,
 } from '../ActionTypes';
 
-import socketIOClient from 'socket.io-client';
-import { baseUrl } from '../shared/baseUrl';
+import { logMeIn } from '../shared/mySocket';
 
 const initialState = {
     user: null, //avra email e token
     isAuthenticated: false,
     msg: [],
+    notifica: 0,
 };
-
-export const socket = socketIOClient(baseUrl + '/loggedIn'); //mi connetto al socket
 
 export default function(state = initialState, action) {
     switch (action.type) {
         case USER_LOGIN_SUCCESS:
             localStorage.setItem('jwtToken', action.payload.token);
             localStorage.setItem('user', action.payload.user.email);
-            socket.emit('user login');
+            logMeIn();
+            //socketIOClient.connect(`${baseUrl}/loggedIn`).on(); //simulazione chiamata di un metodo
+            //socket.emit('user login');
             return {
                 ...state,
                 user: {
@@ -66,6 +67,7 @@ export default function(state = initialState, action) {
                 isAuthenticated: false,
             };
         case USER_CHECK_SUCCESS:
+            logMeIn();
             return {
                 ...state,
                 user: {
@@ -79,6 +81,10 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 msg: [],
+            };
+        case NOTIFY:
+            return {
+                notifica: 1,
             };
         default:
             return state;

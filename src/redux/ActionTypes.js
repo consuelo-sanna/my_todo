@@ -31,3 +31,4 @@ export const USER_CHECK_SUCCESS = 'USER_CHECK_SUCCESS';
 
 //per pulire i messaggi
 export const CLEAR_MSG = 'CLEAR_MSG';
+export const NOTIFY = 'NOTIFY';

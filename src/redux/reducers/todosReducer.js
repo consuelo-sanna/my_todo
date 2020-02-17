@@ -8,7 +8,7 @@ import {
     ADD_TODO_SUCCESS,
 } from '../ActionTypes';
 
-import { socket } from './userReducer';
+import { sendNotification } from '../shared/mySocket';
 
 const initialState = {
     todos: [],
@@ -26,10 +26,7 @@ export default function(state = initialState, action) {
                 todos: action.payload,
             };
         case ADD_TODO_SUCCESS:
-            socket.emit('newTodo', {
-                username: 'provanome',
-                todo: 'dawaww',
-            });
+            sendNotification(action.payload.user);
             return {
                 ...state,
                 todos: [action.payload, ...state.todos],

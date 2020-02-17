@@ -5,3 +5,4 @@ export const getEditable = state => state.todos.editable;
 export const getUser = state => state.user.user;
 export const getIsAuthenticated = state => state.user.isAuthenticated;
 export const getErrors = state => state.user.msg;
+export const getNotifica = state => state.user.notifica;

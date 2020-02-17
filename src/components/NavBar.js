@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { getUser } from '../redux/selectors/index';
+import { getUser, getNotifica } from '../redux/selectors/index';
 
 import { user_logout } from '../redux/ActionCreators';
-import { socket } from '../redux/reducers/userReducer';
 
-import { baseUrl } from '../redux/shared/baseUrl';
+import { mySocket } from '../redux/shared/mySocket';
 
 const useStyles = makeStyles(theme => ({
     title: {
@@ -32,11 +32,23 @@ const useStyles = makeStyles(theme => ({
 
 const NavBar = props => {
     const classes = useStyles();
+
+    const [state, setState] = useState({
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
+    });
+    const { vertical, horizontal, open } = state;
+
     const user = props.user;
     const [notification, setNotification] = useState(0);
+    const [userNotification, setUserNotification] = useState();
     //Listen for data on the "outgoing todo" namespace and create a callback that can take the data sent from the server
-    socket.on('newTodo', todo => {
+
+    mySocket.on('newTodo', todo => {
+        console.log('......notifica ' + todo);
         setNotification(notification + 1);
+        setUserNotification(`nuovo todo da ${todo}`);
     });
 
     const guestLinks = (
@@ -56,6 +68,16 @@ const NavBar = props => {
         </Button>
     );
 
+    const handleClick = newState => () => {
+        setState({ open: true, ...newState });
+    };
+
+    const handleClose = () => {
+        setUserNotification('');
+        setNotification(0);
+        setState({ ...state, open: false });
+    };
+
     return (
         <div className={classes.root}>
             <AppBar className={classes.stickyNav}>
@@ -67,7 +89,13 @@ const NavBar = props => {
                     >
                         To Do App
                     </Typography>
-                    <IconButton color="inherit">
+                    <IconButton
+                        color="inherit"
+                        onClick={handleClick({
+                            vertical: 'top',
+                            horizontal: 'right',
+                        })}
+                    >
                         <Badge
                             badgeContent={notification}
                             color="secondary"
@@ -75,6 +103,13 @@ const NavBar = props => {
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
+                    <Snackbar
+                        anchorOrigin={{ vertical, horizontal }}
+                        key={`${vertical},${horizontal}`}
+                        open={open}
+                        onClose={handleClose}
+                        message={userNotification}
+                    />
                     {user ? authLinks : guestLinks}
                 </Toolbar>
             </AppBar>
@@ -88,6 +123,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     user: getUser(state),
+    notifica: getNotifica(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
