@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import NavBar from './NavBar';
 import Authentication from './Authentication';
 import MainTodo from './MainTodo';
+import Dashboard from './Dashboard';
 import '../App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -53,6 +54,7 @@ class App extends Component {
                 <NavBar />
                 <header className="App-header">
                     <Switch>
+                    <Route path="/dashboard" component={Dashboard} />
                         <AuthRouteOk
                             exact
                             path="/auth"
@@ -68,7 +70,7 @@ class App extends Component {
                                 this.props.isAuthenticated
                             }
                         />
-
+                        
                         <Redirect to="/" />
                     </Switch>
                 </header>
