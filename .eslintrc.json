@@ -18,7 +18,7 @@
       ],
       "rules": {
         "semi": "error",
-        "react-hooks/rules-of-hooks": "error" // Controlla le regole degli Hooks
-       // "react-hooks/exhaustive-deps": "warn" // Controlla le dipendenze dell'effect.. tolto perche non accettava [] come secondo parametro useEffect
+        "react-hooks/rules-of-hooks": "error", // Controlla le regole degli Hooks
+        "react-hooks/exhaustive-deps": "warn" //Controlla le dipendenze dell'effect..attenzione perche non accetta [] come secondo parametro useEffect(per renderlo uguale a componentDidMount)
       }
 }

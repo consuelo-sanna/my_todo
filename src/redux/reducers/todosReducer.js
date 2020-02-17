@@ -8,10 +8,7 @@ import {
     ADD_TODO_SUCCESS,
 } from '../ActionTypes';
 
-import socketIOClient from 'socket.io-client';
-import { baseUrl } from '../shared/baseUrl';
-
-export const socket = socketIOClient(baseUrl); //mi connetto al socket
+import { socket } from './userReducer';
 
 const initialState = {
     todos: [],
@@ -29,7 +26,10 @@ export default function(state = initialState, action) {
                 todos: action.payload,
             };
         case ADD_TODO_SUCCESS:
-            socket.emit('added todo', action.payload);
+            socket.emit('newTodo', {
+                username: 'provanome',
+                todo: 'dawaww',
+            });
             return {
                 ...state,
                 todos: [action.payload, ...state.todos],

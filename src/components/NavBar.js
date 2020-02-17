@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { getUser } from '../redux/selectors/index';
 
 import { user_logout } from '../redux/ActionCreators';
-import { socket } from '../redux/reducers/todosReducer';
+import { socket } from '../redux/reducers/userReducer';
 
 import { baseUrl } from '../redux/shared/baseUrl';
 
@@ -34,12 +34,10 @@ const NavBar = props => {
     const classes = useStyles();
     const user = props.user;
     const [notification, setNotification] = useState(0);
-    //Listen for data on the "outgoing data" namespace and supply a callback for what to do when we get one. In this case, we set a state variable
-    useEffect(() => {
-        socket.on('outgoing todo', data =>
-            setNotification(notification + 1)
-        );
-    }, []);
+    //Listen for data on the "outgoing todo" namespace and create a callback that can take the data sent from the server
+    socket.on('newTodo', todo => {
+        setNotification(notification + 1);
+    });
 
     const guestLinks = (
         <Link href="/auth" variant="body2" color="inherit">

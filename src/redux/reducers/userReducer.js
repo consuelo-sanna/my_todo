@@ -8,17 +8,23 @@ import {
     CLEAR_MSG,
 } from '../ActionTypes';
 
+import socketIOClient from 'socket.io-client';
+import { baseUrl } from '../shared/baseUrl';
+
 const initialState = {
     user: null, //avra email e token
     isAuthenticated: false,
     msg: [],
 };
 
+export const socket = socketIOClient(baseUrl + '/loggedIn'); //mi connetto al socket
+
 export default function(state = initialState, action) {
     switch (action.type) {
         case USER_LOGIN_SUCCESS:
             localStorage.setItem('jwtToken', action.payload.token);
             localStorage.setItem('user', action.payload.user.email);
+            socket.emit('user login');
             return {
                 ...state,
                 user: {
