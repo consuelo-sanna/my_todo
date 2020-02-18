@@ -180,7 +180,9 @@ const NavBar = props => {
                         onClose={handleClose}
                         message={notificationComment}
                     />
-                    {user ? authLinks : guestLinks}
+                    {user && Object.entries(user).length !== 0
+                        ? authLinks
+                        : guestLinks}
                 </Toolbar>
             </AppBar>
             {drawer}
