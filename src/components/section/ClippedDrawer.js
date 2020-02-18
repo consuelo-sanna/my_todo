@@ -22,22 +22,6 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-        marginTop: 60,
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
     },
     menuButton: {
         marginRight: 36,
@@ -68,49 +52,31 @@ const useStyles = makeStyles(theme => ({
             width: theme.spacing(9) + 1,
         },
     },
-    toolbar: {
-        maxWidth: 36,
-        overflowX: 'hidden',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
 }));
 
 export default function ClippedDrawer(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const { open, handleDrawerClose } = props;
+    const { isDrawerOpen, handleDrawerClose } = props;
 
     return (
         <div className={classes.root}>
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-            ></AppBar>
             <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
+                    [classes.drawerOpen]: isDrawerOpen,
+                    [classes.drawerClose]: !isDrawerOpen,
                 })}
                 classes={{
                     paper: clsx({
-                        [classes.drawerOpen]: open,
-                        [classes.drawerClose]: !open,
+                        [classes.drawerOpen]: isDrawerOpen,
+                        [classes.drawerClose]: !isDrawerOpen,
                     }),
                 }}
             >
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? (
-                            <ChevronRightIcon />
-                        ) : (
-                            <ChevronLeftIcon />
-                        )}
+                        <ChevronLeftIcon />
                     </IconButton>
                 </div>
                 <Divider />

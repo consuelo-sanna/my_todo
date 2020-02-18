@@ -53,7 +53,6 @@ function Dashboard() {
 
     return (
         <div>
-            <ClippedDrawer />
             <Grid
                 container
                 justify="space-evenly"
