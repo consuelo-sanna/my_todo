@@ -12,7 +12,7 @@ import {
 import { logMeIn } from '../shared/mySocket';
 
 const initialState = {
-    user: null, //avra email e token
+    user: {}, //avra email e token
     isAuthenticated: false,
     msg: [],
     notifica: 0,
@@ -31,6 +31,8 @@ export default function(state = initialState, action) {
                 user: {
                     id: action.payload.user.id,
                     email: action.payload.user.email,
+                    role: action.payload.user.role,
+                    name: action.payload.user.name,
                     token: action.payload.token,
                 },
                 isAuthenticated: true,
@@ -74,6 +76,8 @@ export default function(state = initialState, action) {
                     id: action.payload.id,
                     email: action.payload.email,
                     token: action.payload.token,
+                    name: action.payload.name,
+                    role: action.payload.role,
                 },
                 isAuthenticated: true,
             };

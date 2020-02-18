@@ -1,10 +1,8 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Widget from './section/Widget';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import ClippedDrawer from './section/ClippedDrawer';
 
 const useStyles = makeStyles(theme => ({
     root: {

@@ -16,17 +16,7 @@ import { user_logout } from '../redux/ActionCreators';
 
 import { mySocket } from '../redux/shared/mySocket';
 
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import List from '@material-ui/core/List';
-import Drawer from '@material-ui/core/Drawer';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-
 import clsx from 'clsx';
 import ClippedDrawer from './section/ClippedDrawer';
 
@@ -74,23 +64,54 @@ const useStyles = makeStyles(theme => ({
 
 const NavBar = props => {
     const classes = useStyles();
-
+    const [isDrawerOpen, setisDrawerOpen] = useState(false);
+    const handleDrawerClose = () => {
+        console.log('premuto per chiudere');
+        setisDrawerOpen(false);
+    };
+    const handleDrawerOpen = () => {
+        console.log('premuto per aprire');
+        setisDrawerOpen(true);
+    };
     const [state, setState] = useState({
-        open: false,
+        isSnackbarOpen: false,
         vertical: 'top',
         horizontal: 'center',
     });
-    const { vertical, horizontal, open } = state;
+    const { vertical, horizontal, isSnackbarOpen } = state;
 
     const user = props.user;
-    const [notification, setNotification] = useState(0);
-    const [userNotification, setUserNotification] = useState();
+
+    const isAdmin = user && user.role === 'admin' ? true : false;
+    const drawer = isAdmin ? (
+        <ClippedDrawer
+            isDrawerOpen={isDrawerOpen}
+            handleDrawerClose={handleDrawerClose}
+        />
+    ) : null;
+
+    const dashboardIcon = isAdmin ? (
+        <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, {
+                [classes.hide]: isDrawerOpen,
+            })}
+        >
+            <MenuIcon />
+        </IconButton>
+    ) : null;
+
+    const [notificationNumber, setNotificationNumber] = useState(0);
+    const [notificationComment, setNotificationComment] = useState();
     //Listen for data on the "outgoing todo" namespace and create a callback that can take the data sent from the server
 
     mySocket.on('newTodo', todo => {
         console.log('......notifica ' + todo);
-        setNotification(notification + 1);
-        setUserNotification(`nuovo todo da ${todo}`);
+        setNotificationNumber(notificationNumber + 1);
+        setNotificationComment(`nuovo todo da ${todo}`);
     });
 
     const guestLinks = (
@@ -111,25 +132,14 @@ const NavBar = props => {
     );
 
     const handleClick = newState => () => {
-        setState({ open: true, ...newState });
+        setState({ isSnackbarOpen: true, ...newState });
+        console.log(user);
     };
 
     const handleClose = () => {
-        setUserNotification('');
-        setNotification(0);
-        setState({ ...state, open: false });
-    };
-
-    const [isDrawerOpen, setisDrawerOpen] = useState(false);
-
-    const handleDrawerOpen = () => {
-        console.log('premuto per aprire');
-        setisDrawerOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        console.log('premuto per chiudere');
-        setisDrawerOpen(false);
+        setNotificationComment('');
+        setNotificationNumber(0);
+        setState({ ...state, isSnackbarOpen: false });
     };
 
     return (
@@ -141,17 +151,7 @@ const NavBar = props => {
                 })}
             >
                 <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: isDrawerOpen,
-                        })}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                    {dashboardIcon}
                     <Typography
                         variant="h6"
                         color="inherit"
@@ -167,7 +167,7 @@ const NavBar = props => {
                         })}
                     >
                         <Badge
-                            badgeContent={notification}
+                            badgeContent={notificationNumber}
                             color="secondary"
                         >
                             <NotificationsIcon />
@@ -176,17 +176,14 @@ const NavBar = props => {
                     <Snackbar
                         anchorOrigin={{ vertical, horizontal }}
                         key={`${vertical},${horizontal}`}
-                        open={open}
+                        open={isSnackbarOpen}
                         onClose={handleClose}
-                        message={userNotification}
+                        message={notificationComment}
                     />
                     {user ? authLinks : guestLinks}
                 </Toolbar>
             </AppBar>
-            <ClippedDrawer
-                isDrawerOpen={isDrawerOpen}
-                handleDrawerClose={handleDrawerClose}
-            />
+            {drawer}
         </div>
     );
 };
