@@ -11,7 +11,7 @@ function preventDefault(event) {
 
 const useStyles = makeStyles({
     depositContext: {
-    flex: 1,
+        flex: 1,
     },
 });
 
@@ -19,22 +19,12 @@ const useStyles = makeStyles({
 function Widget(props) {
     const classes = useStyles();
     return (
-    <React.Fragment>
-        
-        <Title>{props.children}</Title>
-        <Typography component="p" variant="h4">
-        2
-        </Typography>
-        <Typography color="textSecondary" className={classes.depositContext}>
-        data di oggi
-        </Typography>
-        <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-            Vedi utenti
-        </Link>
-        </div>
-        
-    </React.Fragment>
+        <React.Fragment>
+            <Title>{props.titolo}</Title>
+            <Typography component="p" variant="h4">
+                {props.risultato}
+            </Typography>
+        </React.Fragment>
     );
 }
 
