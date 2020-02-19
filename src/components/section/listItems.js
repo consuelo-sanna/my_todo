@@ -10,7 +10,13 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
-export const mainListItems = (
+import HomeIcon from '@material-ui/icons/Home';
+
+import Link from '@material-ui/core/Link';
+
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+
+export const secondaryListItems = (
     <div>
         <ListItem button>
             <ListItemIcon>
@@ -45,26 +51,27 @@ export const mainListItems = (
     </div>
 );
 
-export const secondaryListItems = (
+export const mainListItems = (
     <div>
-        <ListSubheader inset>Saved reports</ListSubheader>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Current month" />
+        <ListSubheader inset>Redirect</ListSubheader>
+
+        <ListItem button key={'home'}>
+            <Link href="/">
+                <ListItemIcon>
+                    <HomeIcon />
+                </ListItemIcon>
+            </Link>
+
+            <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Last quarter" />
-        </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Year-end sale" />
+        <ListItem button key={'dashboard'}>
+            <Link href="/dashboard">
+                <ListItemIcon>
+                    <DashboardIcon />
+                </ListItemIcon>
+            </Link>
+
+            <ListItemText primary="Dashboard" />
         </ListItem>
     </div>
 );

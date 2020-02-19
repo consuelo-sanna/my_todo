@@ -13,7 +13,10 @@ import {
     getUser,
     getIsLoading,
 } from '../redux/selectors/index';
-import { user_check_token } from '../redux/ActionCreators';
+import {
+    user_check_token,
+    set_loading_false,
+} from '../redux/ActionCreators';
 
 /** Voglio andare alla home ma non sono autenticato */
 const AuthRoute = ({ component: Component, ...rest }) => (
@@ -37,7 +40,7 @@ const AuthRouteOk = ({ component: Component, ...rest }) => (
         {...rest}
         render={props =>
             rest.isLoading ? (
-                console.log('Loading')
+                console.log('Loading 2')
             ) : rest.isAuthenticated ? (
                 <Redirect to="/" />
             ) : (
@@ -67,6 +70,8 @@ class App extends Component {
         const token = localStorage.getItem('jwtToken');
         if (!this.props.isAuthenticated && token) {
             this.props.check_token(token);
+        } else {
+            this.props.set_loading_false();
         }
     }
 
@@ -126,6 +131,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     check_token: token => dispatch(user_check_token(token)),
+    set_loading_false: () => dispatch(set_loading_false()),
 });
 
 //connetti le eventuali cose che dispatchi.. (forse nulla)
