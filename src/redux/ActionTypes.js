@@ -32,3 +32,7 @@ export const USER_CHECK_SUCCESS = 'USER_CHECK_SUCCESS';
 //per pulire i messaggi
 export const CLEAR_MSG = 'CLEAR_MSG';
 export const NOTIFY = 'NOTIFY';
+
+//loading
+export const SET_LOADING_TRUE = 'SET_LOADING_TRUE';
+export const SET_LOADING_FALSE = 'SET_LOADING_FALSE';

@@ -23,6 +23,8 @@ import {
     USER_CHECK_TOKEN,
     USER_CHECK_SUCCESS,
     CLEAR_MSG,
+    SET_LOADING_TRUE,
+    SET_LOADING_FALSE,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -138,4 +140,13 @@ export const user_check_success = response => ({
 //messaggi
 export const clear_msg = () => ({
     type: CLEAR_MSG,
+});
+
+//loading
+export const set_loading_true = () => ({
+    type: SET_LOADING_TRUE,
+});
+
+export const set_loading_false = () => ({
+    type: SET_LOADING_FALSE,
 });

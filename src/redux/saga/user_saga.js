@@ -6,6 +6,8 @@ import {
     user_login_failed,
     user_registration_success,
     user_registration_failed,
+    set_loading_true,
+    set_loading_false,
 } from '../ActionCreators';
 
 import { baseUrl } from '../shared/baseUrl';
@@ -66,6 +68,7 @@ export function* attemptRegistration(action) {
 
 export function* checkToken() {
     console.log('sono dentro check Token');
+    yield put(set_loading_true());
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('jwtToken');
     try {
@@ -77,6 +80,7 @@ export function* checkToken() {
         console.log(body); // array con i miei todos
         if (body.email === user) {
             yield put(user_check_success({ ...body, token }));
+            yield put(set_loading_false());
         }
     } catch (e) {
         console.log(e);

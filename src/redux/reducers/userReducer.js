@@ -7,6 +7,8 @@ import {
     USER_CHECK_SUCCESS,
     CLEAR_MSG,
     NOTIFY,
+    SET_LOADING_TRUE,
+    SET_LOADING_FALSE,
 } from '../ActionTypes';
 
 import { logMeIn } from '../shared/mySocket';
@@ -14,6 +16,7 @@ import { logMeIn } from '../shared/mySocket';
 const initialState = {
     user: {}, //avra email e token
     isAuthenticated: false,
+    isLoading: true,
     msg: [],
     notifica: 0,
 };
@@ -89,6 +92,16 @@ export default function(state = initialState, action) {
         case NOTIFY:
             return {
                 notifica: 1,
+            };
+        case SET_LOADING_TRUE:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case SET_LOADING_FALSE:
+            return {
+                ...state,
+                isLoading: false,
             };
         default:
             return state;

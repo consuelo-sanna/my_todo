@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import {
     getIsAuthenticated,
     getUser,
+    getIsLoading,
 } from '../redux/selectors/index';
 import { user_check_token } from '../redux/ActionCreators';
 
@@ -19,7 +20,9 @@ const AuthRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            rest.isAuthenticated ? (
+            rest.isLoading ? (
+                console.log('ancora no loading:', props)
+            ) : rest.isAuthenticated ? (
                 <Component {...props} />
             ) : (
                 <Redirect to="/auth" />
@@ -33,7 +36,9 @@ const AuthRouteOk = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            rest.isAuthenticated ? (
+            rest.isLoading ? (
+                console.log('ancora no 2 e loading:')
+            ) : rest.isAuthenticated ? (
                 <Redirect to="/" />
             ) : (
                 <Component {...props} />
@@ -46,7 +51,9 @@ const DashboardRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            rest.isAdmin ? (
+            rest.isLoading ? (
+                console.log('non reindirizzo')
+            ) : rest.isAdmin ? (
                 <Component {...props} />
             ) : (
                 <Redirect to="/" />
@@ -57,7 +64,6 @@ const DashboardRoute = ({ component: Component, ...rest }) => (
 
 class App extends Component {
     componentDidMount() {
-        console.log('autenticazione: ' + this.props.isAuthenticated);
         const token = localStorage.getItem('jwtToken');
         if (!this.props.isAuthenticated && token) {
             this.props.check_token(token);
@@ -80,9 +86,7 @@ class App extends Component {
                                     ? true
                                     : false
                             }
-                            isAuthenticated={
-                                this.props.isAuthenticated
-                            }
+                            isLoading={this.props.isLoading}
                         />
                         <AuthRouteOk
                             exact
@@ -91,13 +95,16 @@ class App extends Component {
                             isAuthenticated={
                                 this.props.isAuthenticated
                             }
+                            isLoading={this.props.isLoading}
                         />
                         <AuthRoute
+                            exact
                             path="/"
                             component={MainTodo}
                             isAuthenticated={
                                 this.props.isAuthenticated
                             }
+                            isLoading={this.props.isLoading}
                         />
 
                         <Redirect to="/" />
@@ -114,6 +121,7 @@ class App extends Component {
 const mapStateToProps = state => ({
     isAuthenticated: getIsAuthenticated(state),
     user: getUser(state), //dovendo aggiungere getUser, posso direttamente controllare l'autenticazione ora
+    isLoading: getIsLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
