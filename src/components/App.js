@@ -21,7 +21,7 @@ const AuthRoute = ({ component: Component, ...rest }) => (
         {...rest}
         render={props =>
             rest.isLoading ? (
-                console.log('ancora no loading:', props)
+                console.log('still Loading')
             ) : rest.isAuthenticated ? (
                 <Component {...props} />
             ) : (
@@ -37,7 +37,7 @@ const AuthRouteOk = ({ component: Component, ...rest }) => (
         {...rest}
         render={props =>
             rest.isLoading ? (
-                console.log('ancora no 2 e loading:')
+                console.log('Loading')
             ) : rest.isAuthenticated ? (
                 <Redirect to="/" />
             ) : (
@@ -52,7 +52,7 @@ const DashboardRoute = ({ component: Component, ...rest }) => (
         {...rest}
         render={props =>
             rest.isLoading ? (
-                console.log('non reindirizzo')
+                console.log('Loading')
             ) : rest.isAdmin ? (
                 <Component {...props} />
             ) : (

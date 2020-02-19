@@ -67,7 +67,6 @@ export function* attemptRegistration(action) {
 }
 
 export function* checkToken() {
-    console.log('sono dentro check Token');
     yield put(set_loading_true());
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('jwtToken');
@@ -77,7 +76,6 @@ export function* checkToken() {
             headers: headersConfig().headers,
         });
         const body = yield call([response, response.json]);
-        console.log(body); // array con i miei todos
         if (body.email === user) {
             yield put(user_check_success({ ...body, token }));
             yield put(set_loading_false());
