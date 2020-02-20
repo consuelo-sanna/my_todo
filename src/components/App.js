@@ -18,7 +18,7 @@ import {
     set_loading_false,
 } from '../redux/ActionCreators';
 
-import Loader from 'react-loader-spinner';
+import LoadingIndicator from './LoadingIndicator';
 
 /** Voglio andare alla home ma non sono autenticato */
 const AuthRoute = ({ component: Component, ...rest }) => (
@@ -83,12 +83,7 @@ class App extends Component {
                 <NavBar />
                 <header className="App-header">
                     {this.props.isLoading ? (
-                        <Loader
-                            type="ThreeDots"
-                            color="blue"
-                            height={80}
-                            width={80}
-                        />
+                        <LoadingIndicator />
                     ) : (
                         <Switch>
                             <DashboardRoute
@@ -103,6 +98,7 @@ class App extends Component {
                                 }
                                 isLoading={this.props.isLoading}
                             />
+
                             <AuthRouteOk
                                 exact
                                 path="/auth"
@@ -112,6 +108,7 @@ class App extends Component {
                                 }
                                 isLoading={this.props.isLoading}
                             />
+
                             <AuthRoute
                                 exact
                                 path="/"

@@ -7,3 +7,4 @@ export const getIsAuthenticated = state => state.user.isAuthenticated;
 export const getErrors = state => state.user.msg;
 export const getNotifica = state => state.user.notifica;
 export const getIsLoading = state => state.user.isLoading;
+export const getIsLoadingTodos = state => state.todos.isLoadingTodos;

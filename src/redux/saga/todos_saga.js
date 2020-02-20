@@ -6,6 +6,8 @@ import {
     add_todo_success,
     edit_todo_success,
     mark_todo_success,
+    set_loading_todos_true,
+    set_loading_todos_false,
 } from '../ActionCreators';
 
 import { baseUrl } from '../shared/baseUrl';
@@ -16,6 +18,7 @@ const urlTodos = baseUrl + '/api/todos';
 //fetch get del server, ricevuta la risposta fa un dispatch per reducer redux
 // devi dare anche l user
 export function* getByUser() {
+    yield put(set_loading_todos_true());
     const user = localStorage.getItem('user');
     try {
         const response = yield fetch(urlTodos + '/' + user, {
@@ -23,6 +26,7 @@ export function* getByUser() {
             headers: headersConfig().headers,
         });
         const body = yield call([response, response.json]);
+        yield put(set_loading_todos_false());
         yield put(get_todos_success(body));
     } catch (e) {
         console.log(e);

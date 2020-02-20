@@ -25,6 +25,8 @@ import {
     CLEAR_MSG,
     SET_LOADING_TRUE,
     SET_LOADING_FALSE,
+    SET_LOADING_TODOS_TRUE,
+    SET_LOADING_TODOS_FALSE,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -149,4 +151,12 @@ export const set_loading_true = () => ({
 
 export const set_loading_false = () => ({
     type: SET_LOADING_FALSE,
+});
+
+export const set_loading_todos_true = () => ({
+    type: SET_LOADING_TODOS_TRUE,
+});
+
+export const set_loading_todos_false = () => ({
+    type: SET_LOADING_TODOS_FALSE,
 });

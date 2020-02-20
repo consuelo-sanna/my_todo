@@ -6,6 +6,8 @@ import {
     UPDATE_TEXT,
     GET_TODOS_SUCCESS,
     ADD_TODO_SUCCESS,
+    SET_LOADING_TODOS_TRUE,
+    SET_LOADING_TODOS_FALSE,
 } from '../ActionTypes';
 
 import { sendNotification } from '../shared/mySocket';
@@ -16,6 +18,7 @@ const initialState = {
         id: 0,
         title: '',
     },
+    isLoadingTodos: false,
 };
 
 export default function(state = initialState, action) {
@@ -77,6 +80,16 @@ export default function(state = initialState, action) {
                     id: action.payload.id,
                     title: action.payload.testo,
                 },
+            };
+        case SET_LOADING_TODOS_TRUE:
+            return {
+                ...state,
+                isLoadingTodos: true,
+            };
+        case SET_LOADING_TODOS_FALSE:
+            return {
+                ...state,
+                isLoadingTodos: false,
             };
         default:
             return state;

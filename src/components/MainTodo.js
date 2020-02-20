@@ -15,8 +15,13 @@ import {
 import { store } from '../redux/store';
 import { connect } from 'react-redux';
 
-import { getTodos, getEditable } from '../redux/selectors/index';
+import {
+    getTodos,
+    getEditable,
+    getIsLoadingTodos,
+} from '../redux/selectors/index';
 import { Card } from '@material-ui/core';
+import LoadingIndicator from './LoadingIndicator';
 
 class MainTodo extends Component {
     componentDidMount() {
@@ -56,22 +61,26 @@ class MainTodo extends Component {
         return (
             <div>
                 <header>
-                    <Card color="inherit">
-                        <AddEditItem
-                            editable={this.props.editable}
-                            addTodo={this.addTodo}
-                            editTodo={this.editTodo}
-                            updateText={this.updateText}
-                        />
-                        <div>
-                            <TodoContainer
-                                todo={this.props.todos}
-                                markComplete={this.markComplete}
-                                modItem={this.modItem}
-                                delItem={this.delItem}
+                    {this.props.isLoadingTodos ? (
+                        <LoadingIndicator />
+                    ) : (
+                        <Card color="inherit">
+                            <AddEditItem
+                                editable={this.props.editable}
+                                addTodo={this.addTodo}
+                                editTodo={this.editTodo}
+                                updateText={this.updateText}
                             />
-                        </div>
-                    </Card>
+                            <div>
+                                <TodoContainer
+                                    todo={this.props.todos}
+                                    markComplete={this.markComplete}
+                                    modItem={this.modItem}
+                                    delItem={this.delItem}
+                                />
+                            </div>
+                        </Card>
+                    )}
                 </header>
             </div>
         );
@@ -81,6 +90,7 @@ class MainTodo extends Component {
 const mapStateToProps = state => ({
     todos: getTodos(state),
     editable: getEditable(state),
+    isLoadingTodos: getIsLoadingTodos(state),
 });
 
 export default connect(mapStateToProps, {
