@@ -26,3 +26,10 @@ export const sendNotification = user => {
         msg: ' ha inserito un nuovo todo',
     });
 };
+
+//Listen for data on the "outgoing todo" namespace and create a callback that can take the data sent from the server
+//qui dovresti gestire l'eventualita di una callback con errore, facendo try catch.. se catcha, richiama la callback con il valore err
+export function getNoteFromSocket(callback) {
+    console.log('richiamato getNoteFromSocket ');
+    mySocket.on('newTodo', userEmail => callback(null, userEmail));
+}

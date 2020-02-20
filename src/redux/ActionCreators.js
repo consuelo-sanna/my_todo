@@ -23,6 +23,7 @@ import {
     USER_CHECK_TOKEN,
     USER_CHECK_SUCCESS,
     CLEAR_MSG,
+    NOTIFY_ADDED_TODO,
     SET_LOADING_TRUE,
     SET_LOADING_FALSE,
     SET_LOADING_TODOS_TRUE,
@@ -142,6 +143,11 @@ export const user_check_success = response => ({
 //messaggi
 export const clear_msg = () => ({
     type: CLEAR_MSG,
+});
+
+export const notify_added_todo = comment => ({
+    type: NOTIFY_ADDED_TODO,
+    payload: comment,
 });
 
 //loading

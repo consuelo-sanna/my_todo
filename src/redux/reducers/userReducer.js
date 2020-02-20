@@ -6,7 +6,6 @@ import {
     USER_REGISTRATION_FAILED,
     USER_CHECK_SUCCESS,
     CLEAR_MSG,
-    NOTIFY,
     SET_LOADING_TRUE,
     SET_LOADING_FALSE,
 } from '../ActionTypes';
@@ -18,7 +17,6 @@ const initialState = {
     isAuthenticated: false,
     isLoading: true,
     msg: [],
-    notifica: 0,
 };
 
 export default function(state = initialState, action) {
@@ -55,6 +53,7 @@ export default function(state = initialState, action) {
         case USER_REGISTRATION_SUCCESS:
             localStorage.setItem('jwtToken', action.payload.token);
             localStorage.setItem('user', action.payload.user.email);
+            logMeIn();
             return {
                 ...state,
                 user: {
@@ -89,10 +88,7 @@ export default function(state = initialState, action) {
                 ...state,
                 msg: [],
             };
-        case NOTIFY:
-            return {
-                notifica: 1,
-            };
+
         case SET_LOADING_TRUE:
             return {
                 ...state,

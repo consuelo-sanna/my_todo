@@ -10,8 +10,6 @@ import {
     SET_LOADING_TODOS_FALSE,
 } from '../ActionTypes';
 
-import { sendNotification } from '../shared/mySocket';
-
 const initialState = {
     todos: [],
     editable: {
@@ -29,7 +27,6 @@ export default function(state = initialState, action) {
                 todos: action.payload,
             };
         case ADD_TODO_SUCCESS:
-            sendNotification(action.payload.user);
             return {
                 ...state,
                 todos: [action.payload, ...state.todos],

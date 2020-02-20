@@ -4,21 +4,18 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { getUser, getNotifica } from '../redux/selectors/index';
 
 import { user_logout } from '../redux/ActionCreators';
 
-import { mySocket } from '../redux/shared/mySocket';
-
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import ClippedDrawer from './section/ClippedDrawer';
+import MySnackbar from './section/MySnackbar';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -73,12 +70,6 @@ const NavBar = props => {
         console.log('premuto per aprire');
         setisDrawerOpen(true);
     };
-    const [state, setState] = useState({
-        isSnackbarOpen: false,
-        vertical: 'top',
-        horizontal: 'center',
-    });
-    const { vertical, horizontal, isSnackbarOpen } = state;
 
     const user = props.user;
 
@@ -104,16 +95,6 @@ const NavBar = props => {
         </IconButton>
     ) : null;
 
-    const [notificationNumber, setNotificationNumber] = useState(0);
-    const [notificationComment, setNotificationComment] = useState();
-    //Listen for data on the "outgoing todo" namespace and create a callback that can take the data sent from the server
-
-    mySocket.on('newTodo', todo => {
-        console.log('......notifica ' + todo);
-        setNotificationNumber(notificationNumber + 1);
-        setNotificationComment(`nuovo todo da ${todo}`);
-    });
-
     const guestLinks = (
         <Link href="/auth" variant="body2" color="inherit">
             Login
@@ -130,17 +111,6 @@ const NavBar = props => {
             Logout
         </Button>
     );
-
-    const handleClick = newState => () => {
-        setState({ isSnackbarOpen: true, ...newState });
-        console.log(user);
-    };
-
-    const handleClose = () => {
-        setNotificationComment('');
-        setNotificationNumber(0);
-        setState({ ...state, isSnackbarOpen: false });
-    };
 
     return (
         <div className={classes.root}>
@@ -159,27 +129,7 @@ const NavBar = props => {
                     >
                         To Do App
                     </Typography>
-                    <IconButton
-                        color="inherit"
-                        onClick={handleClick({
-                            vertical: 'top',
-                            horizontal: 'right',
-                        })}
-                    >
-                        <Badge
-                            badgeContent={notificationNumber}
-                            color="secondary"
-                        >
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
-                    <Snackbar
-                        anchorOrigin={{ vertical, horizontal }}
-                        key={`${vertical},${horizontal}`}
-                        open={isSnackbarOpen}
-                        onClose={handleClose}
-                        message={notificationComment}
-                    />
+                    <MySnackbar />
                     {user && Object.entries(user).length !== 0
                         ? authLinks
                         : guestLinks}

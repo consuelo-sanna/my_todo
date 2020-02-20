@@ -13,6 +13,8 @@ import {
 import { baseUrl } from '../shared/baseUrl';
 import { headersConfig } from '../shared/helper';
 
+import { sendNotification } from '../shared/mySocket';
+
 const urlTodos = baseUrl + '/api/todos';
 
 //fetch get del server, ricevuta la risposta fa un dispatch per reducer redux
@@ -44,6 +46,7 @@ export function* addAsync(action) {
     console.log(JSON.stringify(response));
 
     yield put(add_todo_success(response));
+    sendNotification(user);
 }
 
 export function* markAsync(action) {
