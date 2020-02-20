@@ -18,6 +18,8 @@ import {
     set_loading_false,
 } from '../redux/ActionCreators';
 
+import Loader from 'react-loader-spinner';
+
 /** Voglio andare alla home ma non sono autenticato */
 const AuthRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -80,40 +82,49 @@ class App extends Component {
             <div className="App">
                 <NavBar />
                 <header className="App-header">
-                    <Switch>
-                        <DashboardRoute
-                            exact
-                            path="/dashboard"
-                            component={Dashboard}
-                            isAdmin={
-                                this.props.user &&
-                                this.props.user.role === 'admin'
-                                    ? true
-                                    : false
-                            }
-                            isLoading={this.props.isLoading}
+                    {this.props.isLoading ? (
+                        <Loader
+                            type="ThreeDots"
+                            color="blue"
+                            height={80}
+                            width={80}
                         />
-                        <AuthRouteOk
-                            exact
-                            path="/auth"
-                            component={Authentication}
-                            isAuthenticated={
-                                this.props.isAuthenticated
-                            }
-                            isLoading={this.props.isLoading}
-                        />
-                        <AuthRoute
-                            exact
-                            path="/"
-                            component={MainTodo}
-                            isAuthenticated={
-                                this.props.isAuthenticated
-                            }
-                            isLoading={this.props.isLoading}
-                        />
+                    ) : (
+                        <Switch>
+                            <DashboardRoute
+                                exact
+                                path="/dashboard"
+                                component={Dashboard}
+                                isAdmin={
+                                    this.props.user &&
+                                    this.props.user.role === 'admin'
+                                        ? true
+                                        : false
+                                }
+                                isLoading={this.props.isLoading}
+                            />
+                            <AuthRouteOk
+                                exact
+                                path="/auth"
+                                component={Authentication}
+                                isAuthenticated={
+                                    this.props.isAuthenticated
+                                }
+                                isLoading={this.props.isLoading}
+                            />
+                            <AuthRoute
+                                exact
+                                path="/"
+                                component={MainTodo}
+                                isAuthenticated={
+                                    this.props.isAuthenticated
+                                }
+                                isLoading={this.props.isLoading}
+                            />
 
-                        <Redirect to="/" />
-                    </Switch>
+                            <Redirect to="/" />
+                        </Switch>
+                    )}
                 </header>
             </div>
         );

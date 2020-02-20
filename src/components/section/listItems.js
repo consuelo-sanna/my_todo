@@ -62,7 +62,7 @@ export const mainListItems = (
                 </ListItemIcon>
             </Link>
 
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Home" />
         </ListItem>
         <ListItem button key={'dashboard'}>
             <Link href="/dashboard">

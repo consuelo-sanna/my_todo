@@ -75,10 +75,16 @@ export function* checkToken() {
             method: 'GET',
             headers: headersConfig().headers,
         });
-        const body = yield call([response, response.json]);
-        if (body.email === user) {
-            yield put(user_check_success({ ...body, token }));
+        console.log(response);
+        if (response.status !== 200) {
             yield put(set_loading_false());
+            yield put(user_login_failed('fail'));
+        } else {
+            const body = yield call([response, response.json]);
+            if (body.email === user) {
+                yield put(user_check_success({ ...body, token }));
+                yield put(set_loading_false());
+            }
         }
     } catch (e) {
         console.log(e);
