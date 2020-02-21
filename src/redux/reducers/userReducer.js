@@ -10,7 +10,7 @@ import {
     SET_LOADING_FALSE,
 } from '../ActionTypes';
 
-import { logMeIn } from '../shared/mySocket';
+import { logMeIn, logMeOut } from '../shared/mySocket';
 
 const initialState = {
     user: {}, //avra email e token
@@ -45,6 +45,7 @@ export default function(state = initialState, action) {
                 isAuthenticated: false,
             };
         case USER_LOGOUT:
+            logMeOut();
             return {
                 ...state,
                 user: null,

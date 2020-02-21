@@ -9,7 +9,6 @@ import { baseUrl } from '../shared/baseUrl';
 
 //.connect("/loggedIn", { token }).on('connect', ...).on('error')
 export const mySocket = socketIOClient(baseUrl);
-
 export const logMeIn = () => {
     console.log(
         'sto provando a inserire l utente nel namespace dei loggati'
@@ -17,6 +16,13 @@ export const logMeIn = () => {
     console.log(mySocket);
 
     mySocket.emit('loggedIn', 'notifyAddRoom');
+};
+
+export const logMeOut = () => {
+    console.log('sto provando a fare logout da notifyAddRoom');
+    console.log(mySocket);
+
+    mySocket.emit('loggedOut', 'notifyAddRoom');
 };
 
 export const sendNotification = user => {

@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { getUser, getNotifica } from '../redux/selectors/index';
+import { getUser } from '../redux/selectors/index';
 
 import { user_logout } from '../redux/ActionCreators';
 
@@ -146,7 +146,6 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     user: getUser(state),
-    notifica: getNotifica(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

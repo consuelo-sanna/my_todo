@@ -17,12 +17,15 @@ class MySnackbar extends Component {
             console.log(err);
 
             this.props.notify_added_todo(userEmail);
+            this.setState({
+                notificaIcon: this.state.notificaIcon + 1,
+            });
         });
     }
 
     state = {
         isSnackbarOpen: false,
-        userEmail: 'no notification yet',
+        notificaIcon: 0,
     };
 
     handleClick = () => newState => {
@@ -35,7 +38,11 @@ class MySnackbar extends Component {
 
     handleClose = () => {
         console.log('premuto tasto per chiudere snackbar');
-        this.setState({ ...this.state, isSnackbarOpen: false });
+        this.setState({
+            ...this.state,
+            isSnackbarOpen: false,
+            notificaIcon: 0,
+        });
     };
 
     render() {
@@ -48,7 +55,10 @@ class MySnackbar extends Component {
                         horizontal: 'right',
                     })}
                 >
-                    <Badge badgeContent={0} color="secondary">
+                    <Badge
+                        badgeContent={this.state.notificaIcon}
+                        color="secondary"
+                    >
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
