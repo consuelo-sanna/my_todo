@@ -28,6 +28,8 @@ import {
     SET_LOADING_FALSE,
     SET_LOADING_TODOS_TRUE,
     SET_LOADING_TODOS_FALSE,
+    STATISTICS_GET,
+    STATISTICS_GET_SUCCESS,
 } from './ActionTypes';
 
 export const add_todo = testo => ({
@@ -165,4 +167,15 @@ export const set_loading_todos_true = () => ({
 
 export const set_loading_todos_false = () => ({
     type: SET_LOADING_TODOS_FALSE,
+});
+
+//statistics
+export const statistics_get = valori => ({
+    type: STATISTICS_GET,
+    payload: valori,
+});
+
+export const statistics_get_success = valori => ({
+    type: STATISTICS_GET_SUCCESS,
+    payload: valori,
 });

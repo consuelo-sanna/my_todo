@@ -7,9 +7,11 @@ import { combineReducers } from 'redux';
 import todosReducer from './todosReducer';
 import userReducer from './userReducer';
 import notificheReducer from './notificheReducer';
+import statisticsReducer from './statisticsReducer';
 
 export default combineReducers({
     todos: todosReducer,
     user: userReducer,
     notifiche: notificheReducer,
+    statistics: statisticsReducer,
 });

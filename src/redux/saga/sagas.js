@@ -16,6 +16,8 @@ import {
     checkToken,
 } from './user_saga';
 
+import { getStatistics } from './statistics_saga';
+
 import {
     ADD_TODO,
     EDIT_TODO,
@@ -25,6 +27,7 @@ import {
     USER_LOGIN_ATTEMPT,
     USER_REGISTRATION_ATTEMPT,
     USER_CHECK_TOKEN,
+    STATISTICS_GET,
 } from '../ActionTypes';
 
 export default function* rootSaga() {
@@ -36,4 +39,5 @@ export default function* rootSaga() {
     yield takeEvery(USER_LOGIN_ATTEMPT, attemptLogin);
     yield takeEvery(USER_REGISTRATION_ATTEMPT, attemptRegistration);
     yield takeEvery(USER_CHECK_TOKEN, checkToken);
+    yield takeEvery(STATISTICS_GET, getStatistics);
 }
