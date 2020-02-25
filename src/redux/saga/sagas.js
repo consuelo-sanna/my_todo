@@ -9,6 +9,7 @@ import {
     editAsync,
     delAsync,
     getByUser,
+    filedownload,
 } from './todos_saga';
 import {
     attemptLogin,
@@ -28,6 +29,7 @@ import {
     USER_REGISTRATION_ATTEMPT,
     USER_CHECK_TOKEN,
     STATISTICS_GET,
+    FILE_DOWNLOAD,
 } from '../ActionTypes';
 
 export default function* rootSaga() {
@@ -40,4 +42,5 @@ export default function* rootSaga() {
     yield takeEvery(USER_REGISTRATION_ATTEMPT, attemptRegistration);
     yield takeEvery(USER_CHECK_TOKEN, checkToken);
     yield takeEvery(STATISTICS_GET, getStatistics);
+    yield takeEvery(FILE_DOWNLOAD, filedownload);
 }

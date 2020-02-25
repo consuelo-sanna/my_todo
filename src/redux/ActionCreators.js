@@ -30,6 +30,7 @@ import {
     SET_LOADING_TODOS_FALSE,
     STATISTICS_GET,
     STATISTICS_GET_SUCCESS,
+    FILE_DOWNLOAD,
 } from './ActionTypes';
 
 export const add_todo = (testo, file) => ({
@@ -178,4 +179,9 @@ export const statistics_get = valori => ({
 export const statistics_get_success = valori => ({
     type: STATISTICS_GET_SUCCESS,
     payload: valori,
+});
+
+export const file_download = (nome, path) => ({
+    type: FILE_DOWNLOAD,
+    payload: { nome: nome, path: path },
 });

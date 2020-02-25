@@ -25,6 +25,7 @@ function TodoContainer(props) {
                                 markComplete={props.markComplete}
                                 modItem={props.modItem}
                                 delItem={props.delItem}
+                                download={props.download}
                             />
                             <Divider />
                         </Grid>

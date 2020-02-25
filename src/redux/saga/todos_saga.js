@@ -90,3 +90,21 @@ export function* delAsync(action) {
     console.log(JSON.stringify(response));
     yield put(del_todo_success(action.payload));
 }
+
+export function* filedownload(action) {
+    debugger;
+    const path = action.payload.path.substring(7, 40);
+    yield fetch(urlTodos + '/download' + path, {
+        method: 'GET',
+        headers: headersConfig().headers,
+    }).then(response => {
+        response.blob().then(blob => {
+            let url = window.URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = action.payload.nome;
+            a.click();
+        });
+        //window.location.href = response.url;  Per aprire in un altra tab.. in questo caso mi da problemi di token e autenticazione
+    });
+}

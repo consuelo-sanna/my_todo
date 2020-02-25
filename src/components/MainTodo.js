@@ -11,6 +11,7 @@ import {
     mark_todo,
     update_text,
     get_todos,
+    file_download,
 } from '../redux/ActionCreators';
 import { store } from '../redux/store';
 import { connect } from 'react-redux';
@@ -57,6 +58,11 @@ class MainTodo extends Component {
         store.dispatch(del_todo(id));
     };
 
+    handleDownloadFile = (nome, path) => {
+        //console.log('devo gestire download');
+        store.dispatch(file_download(nome, path));
+    };
+
     render() {
         return (
             <div>
@@ -77,6 +83,7 @@ class MainTodo extends Component {
                                     markComplete={this.markComplete}
                                     modItem={this.modItem}
                                     delItem={this.delItem}
+                                    download={this.handleDownloadFile}
                                 />
                             </div>
                         </Card>
@@ -100,4 +107,5 @@ export default connect(mapStateToProps, {
     del_todo,
     mark_todo,
     update_text,
+    file_download,
 })(MainTodo);

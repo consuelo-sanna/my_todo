@@ -18,7 +18,7 @@ export default function UploadButton(props) {
     const classes = useStyles();
 
     const onChangeHandler = e => {
-        props.file(e.target.files[0]);
+        props.upload(e.target.files[0]);
     };
 
     return (

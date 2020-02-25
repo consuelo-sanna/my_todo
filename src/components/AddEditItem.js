@@ -18,9 +18,10 @@ class AddEditItem extends Component {
                 this.state.file ? this.state.file : null
             );
         } else this.props.editTodo();
+        this.setState({ file: null });
     };
 
-    handleFile = file => {
+    handleUploadFile = file => {
         console.log(file.name);
         this.setState({ file: file });
     };
@@ -53,7 +54,9 @@ class AddEditItem extends Component {
                         </Button>
                     </Grid>
                     <Grid xs={1} item>
-                        <UploadButton file={this.handleFile} />
+                        <UploadButton
+                            upload={this.handleUploadFile}
+                        />
                     </Grid>
                     <Grid item>
                         <Paper>
