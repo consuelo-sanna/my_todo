@@ -37,8 +37,8 @@ class MainTodo extends Component {
         );
     };
 
-    addTodo = () => {
-        store.dispatch(add_todo(this.props.editable.title));
+    addTodo = file => {
+        store.dispatch(add_todo(this.props.editable.title, file));
     };
 
     modItem = (id, testo) => {

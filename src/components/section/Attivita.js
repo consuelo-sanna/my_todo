@@ -12,10 +12,6 @@ const useStyles = makeStyles({
     table: {},
 });
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
 export default function DenseTable(props) {
     const classes = useStyles();
 

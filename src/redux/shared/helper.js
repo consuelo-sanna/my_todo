@@ -1,11 +1,12 @@
-export const headersConfig = () => {
+export const headersConfig = (isMulti = false) => {
     // Get token from local storage
     const token = localStorage.getItem('jwtToken');
     //Headers
+    const headerValue = isMulti
+        ? {}
+        : { 'Content-type': 'application/json' };
     const config = {
-        headers: {
-            'Content-type': 'application/json',
-        },
+        headers: headerValue,
     };
     // if token, add to headers
     if (token) {

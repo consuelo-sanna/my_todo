@@ -13,9 +13,6 @@ class MySnackbar extends Component {
     constructor(props) {
         super(props);
         getNoteFromSocket((err, userEmail) => {
-            console.log('sono nella callback ' + userEmail);
-            console.log(err);
-
             this.props.notify_added_todo(userEmail);
             this.setState({
                 notificaIcon: this.state.notificaIcon + 1,
@@ -29,15 +26,10 @@ class MySnackbar extends Component {
     };
 
     handleClick = () => newState => {
-        //this.setState({ isSnackbarOpen: true, ...newState });
-        console.log('premuta campanella');
-        console.log(this.props);
-        console.log('notifica: ' + this.props.notifica);
         this.setState({ ...this.state, isSnackbarOpen: true });
     };
 
     handleClose = () => {
-        console.log('premuto tasto per chiudere snackbar');
         this.setState({
             ...this.state,
             isSnackbarOpen: false,

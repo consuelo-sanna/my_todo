@@ -32,9 +32,9 @@ import {
     STATISTICS_GET_SUCCESS,
 } from './ActionTypes';
 
-export const add_todo = testo => ({
+export const add_todo = (testo, file) => ({
     type: ADD_TODO,
-    payload: testo,
+    payload: { testo, file },
 });
 
 export const del_todo = id => ({

@@ -36,12 +36,22 @@ export function* getByUser() {
 }
 
 export function* addAsync(action) {
+    let data = new FormData();
     const user = localStorage.getItem('user');
-    const newTodo = { testo: action.payload, user: user };
+    if (action.payload.file) {
+        data.append(
+            'file',
+            action.payload.file,
+            action.payload.file.name
+        );
+    }
+    data.append('testo', action.payload.testo);
+    data.append('user', user);
+    console.log(data);
     const response = yield fetch(urlTodos, {
         method: 'POST',
-        body: JSON.stringify(newTodo),
-        headers: headersConfig().headers,
+        headers: headersConfig(true).headers,
+        body: data,
     }).then(res => res.json());
     console.log(JSON.stringify(response));
 

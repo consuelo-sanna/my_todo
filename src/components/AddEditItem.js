@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { TextField, Paper, Button, Grid } from '@material-ui/core';
+import UploadButton from './section/UploadButton';
 
 class AddEditItem extends Component {
+    state = {
+        file: null,
+    };
+
     onChange = e => {
         this.props.updateText(e.target.value, this.props.editable.id);
     };
@@ -9,8 +14,15 @@ class AddEditItem extends Component {
     onSubmit = e => {
         e.preventDefault();
         if (this.props.editable.id === 0) {
-            this.props.addTodo();
+            this.props.addTodo(
+                this.state.file ? this.state.file : null
+            );
         } else this.props.editTodo();
+    };
+
+    handleFile = file => {
+        console.log(file.name);
+        this.setState({ file: file });
     };
 
     render() {
@@ -18,8 +30,8 @@ class AddEditItem extends Component {
             <Paper style={{ margin: 16, padding: 16 }}>
                 <Grid container justify="space-between">
                     <Grid
-                        xs={9}
-                        md={10}
+                        xs={8}
+                        md={9}
                         item
                         style={{ paddingRight: 18 }}
                     >
@@ -39,6 +51,16 @@ class AddEditItem extends Component {
                         >
                             Add
                         </Button>
+                    </Grid>
+                    <Grid xs={1} item>
+                        <UploadButton file={this.handleFile} />
+                    </Grid>
+                    <Grid item>
+                        <Paper>
+                            {this.state.file
+                                ? this.state.file.name
+                                : null}
+                        </Paper>
                     </Grid>
                 </Grid>
             </Paper>
