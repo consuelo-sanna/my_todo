@@ -92,7 +92,6 @@ export function* delAsync(action) {
 }
 
 export function* filedownload(action) {
-    debugger;
     const path = action.payload.path.substring(7, 40);
     yield fetch(urlTodos + '/download' + path, {
         method: 'GET',

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TextField, Paper, Button, Grid } from '@material-ui/core';
 import UploadButton from './section/UploadButton';
+import FileItem from './section/FileItem';
 
 class AddEditItem extends Component {
     state = {
@@ -18,12 +19,20 @@ class AddEditItem extends Component {
                 this.state.file ? this.state.file : null
             );
         } else this.props.editTodo();
-        this.setState({ file: null });
+        this.clearState();
     };
 
     handleUploadFile = file => {
         console.log(file.name);
         this.setState({ file: file });
+    };
+
+    handleRemoveFile = () => {
+        this.clearState();
+    };
+
+    clearState = () => {
+        this.setState({ file: null });
     };
 
     render() {
@@ -59,11 +68,10 @@ class AddEditItem extends Component {
                         />
                     </Grid>
                     <Grid item>
-                        <Paper>
-                            {this.state.file
-                                ? this.state.file.name
-                                : null}
-                        </Paper>
+                        <FileItem
+                            file={this.state.file}
+                            removeFile={this.handleRemoveFile}
+                        />
                     </Grid>
                 </Grid>
             </Paper>
