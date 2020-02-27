@@ -33,6 +33,7 @@ export const USER_CHECK_SUCCESS = 'USER_CHECK_SUCCESS';
 export const CLEAR_MSG = 'CLEAR_MSG';
 export const NOTIFY_ADDED_TODO = 'NOTIFY_ADDED_TODO';
 export const SET_MSG = 'SET_MSG';
+export const SET_ERROR = 'SET_ERROR';
 
 //loading
 export const SET_LOADING_TRUE = 'SET_LOADING_TRUE';

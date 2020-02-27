@@ -25,6 +25,7 @@ import {
     CLEAR_MSG,
     NOTIFY_ADDED_TODO,
     SET_MSG,
+    SET_ERROR,
     SET_LOADING_TRUE,
     SET_LOADING_FALSE,
     SET_LOADING_TODOS_TRUE,
@@ -157,6 +158,11 @@ export const notify_added_todo = comment => ({
 export const set_msg = testo => ({
     type: SET_MSG,
     payload: testo,
+});
+
+export const set_error = error => ({
+    type: SET_ERROR,
+    payload: error,
 });
 
 //loading

@@ -13,7 +13,6 @@ import {
     get_todos,
     file_download,
 } from '../redux/ActionCreators';
-import { store } from '../redux/store';
 import { connect } from 'react-redux';
 
 import {
@@ -26,41 +25,39 @@ import LoadingIndicator from './LoadingIndicator';
 
 class MainTodo extends Component {
     componentDidMount() {
-        store.dispatch(get_todos());
+        this.props.get_todos();
     }
 
     editTodo = () => {
-        store.dispatch(
-            edit_todo(
-                this.props.editable.title,
-                this.props.editable.id
-            )
+        this.props.editTodo(
+            this.props.editable.title,
+            this.props.editable.id
         );
     };
 
     addTodo = file => {
-        store.dispatch(add_todo(this.props.editable.title, file));
+        this.props.addTodo(this.props.editable.title, file);
     };
 
     modItem = (id, testo) => {
-        store.dispatch(mod_text(testo, id));
+        this.props.modItem(testo, id);
     };
 
     updateText = (testo, id) => {
-        store.dispatch(update_text(testo, id));
+        this.props.updateText(testo, id);
     };
 
     markComplete = (id, completed) => {
-        store.dispatch(mark_todo(id, completed));
+        this.props.markComplete(id, completed);
     };
 
     delItem = id => {
-        store.dispatch(del_todo(id));
+        this.props.delItem(id);
     };
 
     handleDownloadFile = (nome, path) => {
         //console.log('devo gestire download');
-        store.dispatch(file_download(nome, path));
+        this.props.file_download(nome, path);
     };
 
     render() {
@@ -100,12 +97,17 @@ const mapStateToProps = state => ({
     isLoadingTodos: getIsLoadingTodos(state),
 });
 
-export default connect(mapStateToProps, {
-    add_todo,
-    mod_text,
-    edit_todo,
-    del_todo,
-    mark_todo,
-    update_text,
-    file_download,
-})(MainTodo);
+const mapDispatchToProps = dispatch => ({
+    get_todos: () => dispatch(get_todos()),
+    addTodo: file => dispatch(add_todo(file)),
+    modItem: (testo, id) => dispatch(mod_text(testo, id)),
+    editTodo: (title, id) => dispatch(edit_todo(title, id)),
+    delItem: id => dispatch(del_todo(id)),
+    markComplete: (id, completed) =>
+        dispatch(mark_todo(id, completed)),
+    updateText: (testo, id) => dispatch(update_text(testo, id)),
+    file_download: (nome, path) =>
+        dispatch(file_download(nome, path)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainTodo);

@@ -87,6 +87,6 @@ export function* checkToken() {
             }
         }
     } catch (e) {
-        console.log(e);
+        yield put(set_loading_false());
     }
 }

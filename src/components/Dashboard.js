@@ -10,8 +10,6 @@ import { getCards, getLastTodos } from '../redux/selectors/index';
 
 import { connect } from 'react-redux';
 
-import { store } from '../redux/store';
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -36,9 +34,8 @@ const styles = theme => ({
 
 class Dashboard extends Component {
     componentDidMount() {
-        store.dispatch(statistics_get());
+        this.props.statistics_get();
     }
-
     render() {
         const { classes } = this.props;
         return (
@@ -84,6 +81,11 @@ const mapStateToProps = state => ({
     lastTodos: getLastTodos(state),
 });
 
-export default connect(mapStateToProps, { statistics_get })(
-    withStyles(styles)(Dashboard)
-);
+const mapDispatchToProps = dispatch => ({
+    statistics_get: () => dispatch(statistics_get()),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(styles)(Dashboard));

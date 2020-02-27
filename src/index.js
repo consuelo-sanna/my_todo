@@ -4,17 +4,20 @@ import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
-
 import { BrowserRouter } from 'react-router-dom';
+import { createProvider } from './redux/shared/createProvider';
+
+import rootReducer from './redux/reducers';
+import rootSaga from './redux/saga/sagas';
+
+const AppProvider = createProvider(rootReducer, rootSaga);
 
 ReactDOM.render(
-    <Provider store={store}>
+    <AppProvider>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </Provider>,
+    </AppProvider>,
     document.getElementById('root')
 );
 
