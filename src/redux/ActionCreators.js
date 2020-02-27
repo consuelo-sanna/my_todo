@@ -24,6 +24,7 @@ import {
     USER_CHECK_SUCCESS,
     CLEAR_MSG,
     NOTIFY_ADDED_TODO,
+    SET_MSG,
     SET_LOADING_TRUE,
     SET_LOADING_FALSE,
     SET_LOADING_TODOS_TRUE,
@@ -151,6 +152,11 @@ export const clear_msg = () => ({
 export const notify_added_todo = comment => ({
     type: NOTIFY_ADDED_TODO,
     payload: comment,
+});
+
+export const set_msg = testo => ({
+    type: SET_MSG,
+    payload: testo,
 });
 
 //loading

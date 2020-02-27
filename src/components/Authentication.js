@@ -19,9 +19,11 @@ import {
     user_login_attempt,
     user_registration_attempt,
     clear_msg,
+    set_msg,
 } from '../redux/ActionCreators';
 
 import { getErrors } from '../redux/selectors/index';
+import { loginSchema, valida } from '../validation/schemas';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -94,8 +96,15 @@ function Authentication(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (!isRegistration) props.user_login(email, password);
-        else props.user_register(name, lastname, email, password);
+        if (!isRegistration) {
+            if (valida({ email, password }, loginSchema)) {
+                props.user_login(email, password);
+            } else props.set_msg('inserire tutti i campi');
+        } else {
+            if (valida({ name, lastname, email, password })) {
+                props.user_register(name, lastname, email, password);
+            } else props.set_msg('errore registrazione');
+        }
     }
 
     return (
@@ -214,6 +223,7 @@ const mapDispatchToProps = dispatch => ({
             user_registration_attempt(name, lastname, email, password)
         ),
     clear_msg: () => dispatch(clear_msg()),
+    set_msg: testo => dispatch(set_msg(testo)),
 });
 
 export default connect(

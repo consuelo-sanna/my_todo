@@ -8,6 +8,7 @@ import {
     CLEAR_MSG,
     SET_LOADING_TRUE,
     SET_LOADING_FALSE,
+    SET_MSG,
 } from '../ActionTypes';
 
 import { logMeIn, logMeOut } from '../shared/mySocket';
@@ -99,6 +100,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isLoading: false,
+            };
+        case SET_MSG:
+            return {
+                ...state,
+                msg: [action.payload],
             };
         default:
             return state;
