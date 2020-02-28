@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 notifica: [
-                    action.payload + ' ha inserito un nuovo todo ',
+                    action.payload + ' ha inserito un nuovo todo',
                 ],
             };
         default:

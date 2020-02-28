@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const NavBar = props => {
+export const NavBar = props => {
     const classes = useStyles();
     const [isDrawerOpen, setisDrawerOpen] = useState(false);
     const handleDrawerClose = () => {
