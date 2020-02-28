@@ -99,7 +99,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     get_todos: () => dispatch(get_todos()),
-    addTodo: file => dispatch(add_todo(file)),
+    addTodo: (testo, file) => dispatch(add_todo(testo, file)),
     modItem: (testo, id) => dispatch(mod_text(testo, id)),
     editTodo: (title, id) => dispatch(edit_todo(title, id)),
     delItem: id => dispatch(del_todo(id)),

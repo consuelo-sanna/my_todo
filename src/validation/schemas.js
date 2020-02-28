@@ -5,6 +5,11 @@ export const loginSchema = Joi.object().keys({
     password: Joi.string().required(),
 });
 
+export const addSchema = Joi.object().keys({
+    user: Joi.string().required(),
+    testo: Joi.string().required(),
+});
+
 export const valida = (obj, schema) => {
     try {
         const { error } = Joi.validate(obj, schema);

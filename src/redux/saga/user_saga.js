@@ -29,10 +29,12 @@ export function* attemptLogin(action) {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then(res => {
-        isSuccess = res.status === 200;
-        return res.json();
-    });
+    })
+        .then(res => {
+            isSuccess = res.status === 200;
+            return res.json();
+        })
+        .catch(e => console.log(e.message));
     if (isSuccess) {
         yield put(user_login_success(response));
     } else {
@@ -55,10 +57,12 @@ export function* attemptRegistration(action) {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then(res => {
-        isSuccess = res.status === 200;
-        return res.json();
-    });
+    })
+        .then(res => {
+            isSuccess = res.status === 200;
+            return res.json();
+        })
+        .catch(e => console.log(e.message));
     if (isSuccess) {
         yield put(user_registration_success(response));
     } else {
@@ -78,7 +82,11 @@ export function* checkToken() {
         console.log(response);
         if (response.status !== 200) {
             yield put(set_loading_false());
-            yield put(user_login_failed('fail'));
+            yield put(
+                user_login_failed({
+                    msg: 'server error, try again later',
+                })
+            );
         } else {
             const body = yield call([response, response.json]);
             if (body.email === user) {

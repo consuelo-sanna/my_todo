@@ -8,10 +8,14 @@ import todosReducer from './todosReducer';
 import userReducer from './userReducer';
 import notificheReducer from './notificheReducer';
 import statisticsReducer from './statisticsReducer';
+import errorReducer from './errorReducer';
 
-export default combineReducers({
-    todos: todosReducer,
+const rootReducer = combineReducers({
     user: userReducer,
+    todos: todosReducer,
     notifiche: notificheReducer,
     statistics: statisticsReducer,
+    error: errorReducer,
 });
+
+export default rootReducer;

@@ -8,7 +8,9 @@ export const createProvider = (reducer, saga) => {
     const sagaMiddleware = createSagaMiddleware();
     const middleware = compose(
         applyMiddleware(sagaMiddleware),
-        window.devToolsExtension ? window.devToolsExtension() : x => x
+        window.__REDUX_DEVTOOLS_EXTENSION__
+            ? window.devToolsExtension()
+            : x => x
     );
 
     class AppProvider extends Component {
@@ -27,7 +29,7 @@ export const createProvider = (reducer, saga) => {
                 }
             };
 
-            this.store = createStore(catchingReducer, middleware);
+            this.store = createStore(reducer, middleware);
             // .toPromise() is for redux-saga@1.0.0-beta.2, it has much nicer error stack
             const sagaTask = sagaMiddleware.run(saga).toPromise();
             sagaTask.catch(this.showError);
@@ -48,7 +50,7 @@ export const createProvider = (reducer, saga) => {
             if (this.updater.isMounted(this)) {
                 this.setState({ error });
             } else {
-                this.state = { error };
+                this.state = { error }; //fatto per interrompere l applicazione
             }
         }
 

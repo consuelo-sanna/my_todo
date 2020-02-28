@@ -15,6 +15,8 @@ import { headersConfig } from '../shared/helper';
 
 import { sendNotification } from '../shared/mySocket';
 
+import { addSchema, valida } from '../../validation/schemas';
+
 const urlTodos = baseUrl + '/api/todos';
 
 //fetch get del server, ricevuta la risposta fa un dispatch per reducer redux
@@ -35,28 +37,38 @@ export function* getByUser() {
     }
 }
 
+//assicurati con joi ? che i campi testo e user ESISTANO
 export function* addAsync(action) {
+    debugger;
+    const testo = action.payload.testo;
     let data = new FormData();
     const user = localStorage.getItem('user');
-    if (action.payload.file) {
-        data.append(
-            'file',
-            action.payload.file,
-            action.payload.file.name
-        );
-    }
-    data.append('testo', action.payload.testo);
-    data.append('user', user);
-    console.log(data);
-    const response = yield fetch(urlTodos, {
-        method: 'POST',
-        headers: headersConfig(true).headers,
-        body: data,
-    }).then(res => res.json());
-    console.log(JSON.stringify(response));
+    if (valida({ user, testo }, addSchema)) {
+        if (action.payload.file) {
+            data.append(
+                'file',
+                action.payload.file,
+                action.payload.file.name
+            );
+        }
 
-    yield put(add_todo_success(response));
-    sendNotification(user);
+        data.append('testo', testo);
+        data.append('user', user);
+        console.log(data);
+        const response = yield fetch(urlTodos, {
+            method: 'POST',
+            headers: headersConfig(true).headers,
+            body: data,
+        })
+            .then(res => res.json())
+            .catch(e => console.log(e.message));
+        console.log(JSON.stringify(response));
+
+        yield put(add_todo_success(response));
+        sendNotification(user);
+    } else {
+        console.log('inserire tutti i campi');
+    }
 }
 
 export function* markAsync(action) {
@@ -67,7 +79,9 @@ export function* markAsync(action) {
         method: 'PUT',
         body: JSON.stringify(marked),
         headers: headersConfig().headers,
-    }).then(res => res.json());
+    })
+        .then(res => res.json())
+        .catch(e => console.log(e.message));
     console.log(JSON.stringify(response));
     yield put(mark_todo_success(action.payload.id));
 }
@@ -77,7 +91,9 @@ export function* editAsync(action) {
         method: 'PUT',
         body: JSON.stringify(action.payload),
         headers: headersConfig().headers,
-    }).then(res => res.json());
+    })
+        .then(res => res.json())
+        .catch(e => console.log(e.message));
     console.log(JSON.stringify(response));
     yield put(edit_todo_success(action.payload));
 }
@@ -97,13 +113,16 @@ export function* filedownload(action) {
         method: 'GET',
         headers: headersConfig().headers,
     }).then(response => {
-        response.blob().then(blob => {
-            let url = window.URL.createObjectURL(blob);
-            let a = document.createElement('a');
-            a.href = url;
-            a.download = action.payload.nome;
-            a.click();
-        });
+        response
+            .blob()
+            .then(blob => {
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = action.payload.nome;
+                a.click();
+            })
+            .catch(e => console.log(e.message));
         //window.location.href = response.url;  Per aprire in un altra tab.. in questo caso mi da problemi di token e autenticazione
     });
 }
