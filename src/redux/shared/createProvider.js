@@ -29,7 +29,7 @@ export const createProvider = (reducer, saga) => {
                 }
             };
 
-            this.store = createStore(reducer, middleware);
+            this.store = createStore(catchingReducer, middleware);
             // .toPromise() is for redux-saga@1.0.0-beta.2, it has much nicer error stack
             const sagaTask = sagaMiddleware.run(saga).toPromise();
             sagaTask.catch(this.showError);

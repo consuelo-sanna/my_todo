@@ -4,6 +4,7 @@ import Title from './Title';
 
 //qui trasformala in Dashboard, e poi dashboard richiama i vari widget
 function Widget(props) {
+    //throw new Error('my Bad'); esempio test errorBoundaries
     return (
         <React.Fragment>
             <Title>{props.titolo}</Title>

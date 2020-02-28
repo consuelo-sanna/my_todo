@@ -9,6 +9,7 @@ import { statistics_get } from '../redux/ActionCreators';
 import { getCards, getLastTodos } from '../redux/selectors/index';
 
 import { connect } from 'react-redux';
+import ErrorBoundaries from './ErrorBoundaries';
 
 const styles = theme => ({
     root: {
@@ -59,10 +60,14 @@ class Dashboard extends Component {
                                 md={3}
                             >
                                 <Paper className={classes.paper}>
-                                    <Widget
-                                        titolo={elemento.titolo}
-                                        risultato={elemento.risultato}
-                                    />
+                                    <ErrorBoundaries>
+                                        <Widget
+                                            titolo={elemento.titolo}
+                                            risultato={
+                                                elemento.risultato
+                                            }
+                                        />
+                                    </ErrorBoundaries>
                                 </Paper>
                             </Grid>
                         ))}
