@@ -2,9 +2,6 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { NavBar } from './NavBar';
-import { ExpansionPanelActions } from '@material-ui/core';
-import ClippedDrawer from './section/ClippedDrawer';
-import Link from '@material-ui/core/Link';
 
 configure({ adapter: new Adapter() });
 
