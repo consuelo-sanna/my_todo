@@ -1,10 +1,10 @@
 //qui metto il router che scegliera tra login o app
 
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import NavBar from './NavBar';
-import Authentication from './Authentication';
+//import Authentication from './Authentication';    sostituito con React.lazy()
 import MainTodo from './MainTodo';
-//import Dashboard from './Dashboard';
+//import Dashboard from './Dashboard';  sostituito con asyncComponent
 import '../App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -24,6 +24,10 @@ import asyncComponent from './hoc/asyncComponent';
 const AsyncDashboard = asyncComponent(() => {
     return import('./Dashboard');
 });
+
+const AuthenticationLazy = React.lazy(() =>
+    import('./Authentication')
+);
 
 /** Voglio andare alla home ma non sono autenticato */
 const AuthRoute = ({ component: Component, ...rest }) => (
@@ -51,7 +55,9 @@ const AuthRouteOk = ({ component: Component, ...rest }) => (
             ) : rest.isAuthenticated ? (
                 <Redirect to="/" />
             ) : (
-                <Component {...props} />
+                <Suspense fallback={LoadingIndicator}>
+                    <Component {...props} />
+                </Suspense>
             )
         }
     />
@@ -107,7 +113,7 @@ class App extends Component {
                             <AuthRouteOk
                                 exact
                                 path="/auth"
-                                component={Authentication}
+                                component={AuthenticationLazy}
                                 isAuthenticated={
                                     this.props.isAuthenticated
                                 }
