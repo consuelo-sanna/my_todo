@@ -14,7 +14,7 @@ const AppProvider = createProvider(rootReducer, rootSaga);
 
 ReactDOM.render(
     <AppProvider>
-        <BrowserRouter>
+        <BrowserRouter /** basename="/" */>
             <App />
         </BrowserRouter>
     </AppProvider>,
