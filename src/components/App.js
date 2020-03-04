@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import NavBar from './NavBar';
 import Authentication from './Authentication';
 import MainTodo from './MainTodo';
-import Dashboard from './Dashboard';
+//import Dashboard from './Dashboard';
 import '../App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -19,6 +19,11 @@ import {
 } from '../redux/ActionCreators';
 
 import LoadingIndicator from './LoadingIndicator';
+
+import asyncComponent from './hoc/asyncComponent';
+const AsyncDashboard = asyncComponent(() => {
+    return import('./Dashboard');
+});
 
 /** Voglio andare alla home ma non sono autenticato */
 const AuthRoute = ({ component: Component, ...rest }) => (
@@ -89,7 +94,7 @@ class App extends Component {
                             <DashboardRoute
                                 exact
                                 path="/dashboard"
-                                component={Dashboard}
+                                component={AsyncDashboard}
                                 isAdmin={
                                     this.props.user &&
                                     this.props.user.role === 'admin'
